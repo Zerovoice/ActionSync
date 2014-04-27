@@ -1,4 +1,4 @@
-package com.ab.util.dct;
+package com.zeroapp.action.util.dct;
 
 public interface DCT {
 	static double C1 = 0.98078528, C2 = 0.923879532, C3 = 0.831469612,

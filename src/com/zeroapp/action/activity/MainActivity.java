@@ -85,7 +85,6 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
                     Set<String> keyset = arg2.keySet();
                     if (keyset != null) {
                         Iterator iterator = keyset.iterator();
-                        int i =0;
                         while(iterator.hasNext()){
                             String key = (String) iterator.next();
                             String value = arg2.get(key).toString();
@@ -103,7 +102,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 
                 }
             });
-            weibo.authorize();
+//            weibo.authorize();
         }
         // Test Code:获取单个支持平台实例结束
 

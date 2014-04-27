@@ -1,4 +1,4 @@
-package com.ab.util.dct;
+package com.zeroapp.action.util.dct;
 
 public class IFDCT  implements DCT {
 

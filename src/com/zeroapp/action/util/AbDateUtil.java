@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import com.ab.global.AbAppData;
+import com.zeroapp.action.global.AbAppData;
 
 import android.util.Log;
 

@@ -35,7 +35,7 @@ import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.ab.global.AbAppData;
+import com.zeroapp.action.global.AbAppData;
 
 // TODO: Auto-generated Javadoc
 /**

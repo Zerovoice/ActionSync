@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.zeroapp.action.constants.Constants;
 import com.zeroapp.action.database.CategoryDataControler;
+import com.zeroapp.action.database.DBUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class ZeroAppApplication extends Application {
         Log.d(TAG, "---------------------onCreate start-------------");
         categoryDataControler = new CategoryDataControler(this);
         mDatas = new ArrayList<CategoryInfo>();
+        DBUtils.initCategoryManager();
         // 初始化支持的社交类型，预置10种，此处可以控制
         for (int i = 0; i < Constants.category_msg.length; i++) {
 
