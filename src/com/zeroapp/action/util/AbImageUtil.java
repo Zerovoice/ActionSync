@@ -43,9 +43,9 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.widget.ImageView;
 
-import com.zeroapp.action.global.AbAppData;
-import com.zeroapp.action.global.AbConstant;
-import com.zeroapp.action.util.dct.FDCT;
+import com.ab.global.AbAppData;
+import com.ab.global.AbConstant;
+import com.ab.util.dct.FDCT;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -61,7 +61,7 @@ public class AbImageUtil {
 	private static String TAG = "AbImageUtil";
 	
 	/** The Constant D. */
-	private static final boolean D = AbAppData.DEBUG;
+	private static final boolean D = true;
 	
 	
 	/**

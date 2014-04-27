@@ -11,29 +11,29 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int app_default_bg_f5=0x7f040000;
-        public static final int cs_47=0x7f040007;
-        public static final int cs_51=0x7f040001;
-        public static final int home_group_item_e4=0x7f040005;
-        public static final int home_group_item_txt_67=0x7f040006;
-        public static final int selector_rbtn_menu_txt=0x7f040008;
-        public static final int tv_blue=0x7f040003;
-        public static final int tv_gray=0x7f040004;
-        public static final int white=0x7f040002;
+        public static final int app_default_bg_f5=0x7f050000;
+        public static final int cs_47=0x7f050007;
+        public static final int cs_51=0x7f050001;
+        public static final int home_group_item_e4=0x7f050005;
+        public static final int home_group_item_txt_67=0x7f050006;
+        public static final int selector_rbtn_menu_txt=0x7f050008;
+        public static final int tv_blue=0x7f050003;
+        public static final int tv_gray=0x7f050004;
+        public static final int white=0x7f050002;
     }
     public static final class dimen {
-        public static final int actionbar_height=0x7f050005;
+        public static final int actionbar_height=0x7f060005;
         /**  Default screen margins, per the Android Design guidelines. 
 
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f050000;
-        public static final int activity_vertical_margin=0x7f050001;
-        public static final int shadow_width=0x7f050003;
-        public static final int slidingmenu_offset=0x7f050004;
-        public static final int tv_size_14=0x7f050002;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
+        public static final int shadow_width=0x7f060003;
+        public static final int slidingmenu_offset=0x7f060004;
+        public static final int tv_size_14=0x7f060002;
     }
     public static final class drawable {
         public static final int abs__ab_transparent_light_holo=0x7f020000;
@@ -53,7 +53,7 @@ public final class R {
         public static final int line_actionbar_divider=0x7f02000e;
         public static final int qzone=0x7f02000f;
         public static final int qzone_gray=0x7f020010;
-        public static final int rbtn_home_tab_menu=0x7f020023;
+        public static final int rbtn_home_tab_menu=0x7f020027;
         public static final int renren=0x7f020011;
         public static final int renren_gray=0x7f020012;
         public static final int selector_rbtn_home_tab_menu=0x7f020013;
@@ -63,15 +63,19 @@ public final class R {
         public static final int sohu_mb=0x7f020017;
         public static final int sohu_mb_gray=0x7f020018;
         public static final int sort_unfoucs=0x7f020019;
-        public static final int tencent_weibo=0x7f02001a;
-        public static final int tencent_weibo_gray=0x7f02001b;
-        public static final int transparent=0x7f020022;
-        public static final int twitter=0x7f02001c;
-        public static final int twitter_gray=0x7f02001d;
-        public static final int wechat_friend=0x7f02001e;
-        public static final int wechat_friend_gray=0x7f02001f;
-        public static final int wechat_moment=0x7f020020;
-        public static final int wechat_moment_gray=0x7f020021;
+        public static final int ssdk_auth_title_back=0x7f02001a;
+        public static final int ssdk_back_arr=0x7f02001b;
+        public static final int ssdk_logo=0x7f02001c;
+        public static final int ssdk_title_div=0x7f02001d;
+        public static final int tencent_weibo=0x7f02001e;
+        public static final int tencent_weibo_gray=0x7f02001f;
+        public static final int transparent=0x7f020026;
+        public static final int twitter=0x7f020020;
+        public static final int twitter_gray=0x7f020021;
+        public static final int wechat_friend=0x7f020022;
+        public static final int wechat_friend_gray=0x7f020023;
+        public static final int wechat_moment=0x7f020024;
+        public static final int wechat_moment_gray=0x7f020025;
     }
     public static final class id {
         public static final int action_bar_title_tv=0x7f090001;
@@ -95,20 +99,61 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f060001;
-        public static final int app_name=0x7f060000;
-        public static final int douban=0x7f06000a;
-        public static final int evernote=0x7f06000b;
-        public static final int facebook=0x7f06000d;
-        public static final int hello_world=0x7f060002;
-        public static final int qzone=0x7f060007;
-        public static final int renren=0x7f060009;
-        public static final int sina_weibo=0x7f060004;
-        public static final int tencent_weibo=0x7f060008;
-        public static final int twitter=0x7f06000c;
-        public static final int viewpager=0x7f060003;
-        public static final int wechat_friend=0x7f060005;
-        public static final int wechat_moment=0x7f060006;
+        public static final int action_settings=0x7f040030;
+        public static final int app_downloading=0x7f04002c;
+        public static final int app_name=0x7f04002f;
+        public static final int douban=0x7f040018;
+        public static final int download_faield=0x7f04002b;
+        public static final int dropbox=0x7f040022;
+        public static final int email=0x7f040013;
+        public static final int evernote=0x7f04001a;
+        public static final int facebook=0x7f04000f;
+        public static final int failed_to_start_incentive_page=0x7f04002a;
+        public static final int flickr=0x7f040020;
+        public static final int foursquare=0x7f04001d;
+        public static final int google_plus_client_inavailable=0x7f040004;
+        public static final int googleplus=0x7f04001c;
+        public static final int hello_world=0x7f040031;
+        public static final int incentive_title=0x7f040029;
+        public static final int instagram=0x7f040024;
+        public static final int instagram_client_inavailable=0x7f040007;
+        public static final int kaixin=0x7f040012;
+        public static final int linkedin=0x7f04001b;
+        public static final int mingdao=0x7f040027;
+        public static final int mingdao_share_content=0x7f04002d;
+        public static final int neteasemicroblog=0x7f040017;
+        public static final int pinterest=0x7f04001f;
+        public static final int pinterest_client_inavailable=0x7f040006;
+        public static final int qq=0x7f04001e;
+        public static final int qq_client_inavailable=0x7f040005;
+        public static final int qzone=0x7f04000b;
+        public static final int renren=0x7f040011;
+        public static final int share_to_mingdao=0x7f04002e;
+        public static final int share_to_qzone=0x7f040028;
+        public static final int shortmessage=0x7f040014;
+        public static final int sina_weibo=0x7f040033;
+        public static final int sinaweibo=0x7f040009;
+        public static final int sohumicroblog=0x7f040015;
+        public static final int sohusuishenkan=0x7f040016;
+        public static final int tencent_weibo=0x7f040036;
+        public static final int tencentweibo=0x7f04000a;
+        public static final int tumblr=0x7f040021;
+        public static final int twitter=0x7f040010;
+        public static final int viewpager=0x7f040032;
+        public static final int vkontakte=0x7f040023;
+        public static final int website=0x7f040001;
+        public static final int wechat=0x7f04000c;
+        public static final int wechat_client_inavailable=0x7f040003;
+        public static final int wechat_friend=0x7f040034;
+        public static final int wechat_moment=0x7f040035;
+        public static final int wechatfavorite=0x7f04000e;
+        public static final int wechatmoments=0x7f04000d;
+        public static final int weibo_oauth_regiseter=0x7f040000;
+        public static final int weibo_upload_content=0x7f040002;
+        public static final int yixin=0x7f040025;
+        public static final int yixin_client_inavailable=0x7f040008;
+        public static final int yixinmoments=0x7f040026;
+        public static final int youdao=0x7f040019;
     }
     public static final class style {
         /** 

@@ -4,11 +4,17 @@ package com.zeroapp.action.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.weibo.TencentWeibo;
 
 import com.zeroapp.action.R;
 import com.zeroapp.action.database.CategoryDataControler;
@@ -22,11 +28,15 @@ import com.zeroapp.action.view.carousel.CarouselView;
 import com.zeroapp.action.view.carousel.CarouselViewAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends FragmentActivity implements OnItemClickListener,
         OnItemSelectedListener, OnItemLongClickListener {
 
+    private static final String TAG = "MainActivity";
     private CarouselView carousel;
     private TextView actionBarTitle;
     private List<CategoryInfo> data;
@@ -39,9 +49,63 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         setContentView(R.layout.activity_main);
         data = ZeroAppApplication.mDatas;
         categoryDataControler = new CategoryDataControler(this);
+        // 初始化ShareSDK
+        ShareSDK.initSDK(this);
 
         initView();
         initCarousel();
+
+        // Test Code:获取所有支持平台实例
+//        Platform[] platformList = ShareSDK.getPlatformList(this);
+//        if (platformList != null) {
+//            for (int i = 0; i < platformList.length; i++) {
+//                String name = platformList[i].getName();
+//                Log.i(TAG, "platformList name" + i + ":" + name);
+//            }
+//        }
+        // Test Code:获取所有支持平台实例结束
+
+        // Test Code:获取单个支持平台实例
+        Platform weibo = ShareSDK.getPlatform(this, TencentWeibo.NAME);
+        if (weibo != null) {
+            final String name = weibo.getName();
+            Log.i(TAG, "plat name" + ":" + name);
+            weibo.setPlatformActionListener(new PlatformActionListener() {
+
+                @Override
+                public void onError(Platform arg0, int arg1, Throwable onError) {
+                    Log.i(TAG, "plat name" + ":" + name + "onError");
+                    onError.printStackTrace();
+
+                }
+
+                @Override
+                public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+                    Log.i(TAG, "plat name" + ":" + name + "onComplete");
+                    Set<String> keyset = arg2.keySet();
+                    if (keyset != null) {
+                        Iterator iterator = keyset.iterator();
+                        int i =0;
+                        while(iterator.hasNext()){
+                            String key = (String) iterator.next();
+                            String value = arg2.get(key).toString();
+                            Log.i(TAG, "key" + ":" + key);
+                            Log.i(TAG, "value" + ":" + value);
+
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancel(Platform arg0, int arg1) {
+                    Log.i(TAG, "plat name" + ":" + name + "onCancel");
+
+                }
+            });
+            weibo.authorize();
+        }
+        // Test Code:获取单个支持平台实例结束
 
 	}
 
@@ -190,4 +254,19 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         return false;
     }
 
+    /**
+     * <p>
+     * Title: TODO.
+     * </p>
+     * <p>
+     * Description: TODO.
+     * </p>
+     * 
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 结束ShareSDK的统计功能并释放资源
+        ShareSDK.stopSDK(this);
+    }
 }

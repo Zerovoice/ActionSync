@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import com.zeroapp.action.global.AbAppData;
+import com.ab.global.AbAppData;
 
 import android.util.Log;
 
@@ -40,7 +40,7 @@ public class AbDateUtil {
 	private static String TAG = "AbDateUtil";
 	
 	/** The Constant D. */
-	private static final boolean D = AbAppData.DEBUG;
+	private static final boolean D = true;
 	
 	/** 时间日期格式化到年月日时分秒. */
 	public static String dateFormatYMDHMS = "yyyy-MM-dd HH:mm:ss";
