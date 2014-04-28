@@ -15,21 +15,18 @@
  */
 package com.zeroapp.action.view.carousel;
 
-import java.util.List;
-
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout.LayoutParams;
 
-import com.zeroapp.action.util.AbImageUtil;
+import com.zeroapp.action.R;
 import com.zeroapp.action.util.AbViewUtil;
+
+import java.util.List;
 // TODO: Auto-generated Javadoc
 /**
  * 
@@ -136,44 +133,24 @@ public class CarouselViewAdapter extends BaseAdapter {
 	public void setImages(){
 		mCarouselItemViews = new CarouselItemView[mViews.size()];
 		for(int i = 0; i< mViews.size(); i++){
-			final int index = i;
 			View view = mViews.get(i);
-			
 			CarouselItemView itemView = new CarouselItemView(mContext);
 			itemView.setIndex(i);
 			
-			if(mReflected){
-				Bitmap originalImage = AbImageUtil.view2Bitmap(view);
-				ImageView imageView = new ImageView(mContext);
-				LayoutParams  mLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-				mLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-				imageView.setScaleType(ScaleType.CENTER);
-				imageView.setImageBitmap(AbImageUtil.toReflectionBitmap(originalImage));
-				itemView.addView(imageView,mLayoutParams);
-				imageView.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						//((AbActivity)mContext).showToast("点击了:"+index);
-					}
-				});
-				
-			}else{
-				AbViewUtil.measureView(view);
-				LayoutParams  mLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-				mLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-				itemView.addView(view,mLayoutParams);
-				view.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						//((AbActivity)mContext).showToast("点击了:"+index);
-					}
-				});
-			}
-			
+            AbViewUtil.measureView(view);
+            int w = view.getMeasuredWidth();
+            int h = view.getMeasuredHeight();
+            int l = w >= h ? w : h;
+            Log.i("zxb", "h = " + h + ";w = " + w);
+            LayoutParams mLayoutParams = new LayoutParams(l + 10, l + 10);
+            mLayoutParams.gravity = Gravity.CENTER;
+            itemView.addView(view, mLayoutParams);
+
 			mCarouselItemViews[i] = itemView;
-			
+			if(i==0){
+                // 为初始化的第一个图标添加焦点
+                itemView.setBackgroundResource(R.drawable.focus_select_item);
+			}
 		}
 		
 	}

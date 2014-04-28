@@ -22,6 +22,7 @@
             android:src="@drawable/ic_launcher" />
     </LinearLayout>
 
+    <!--
     <TextView
         android:id="@+id/itemsText"
         android:layout_width="wrap_content"
@@ -32,5 +33,6 @@
         android:textColor="#1196ee"
         android:textSize="12sp" >
     </TextView>
+      -->
 
 </LinearLayout>

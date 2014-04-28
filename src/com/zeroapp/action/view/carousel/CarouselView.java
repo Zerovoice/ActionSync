@@ -33,6 +33,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Transformation;
 
+import com.zeroapp.action.R;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -55,7 +57,7 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
 	private static final String TAG = CarouselView.class.getSimpleName();
 
 	/** If logging should be inside class. */
-	private static final boolean localLOGV = false;
+    private static final boolean localLOGV = false;
 	
 	/** Default min quantity of images. */
 	private static final int MIN_QUANTITY = 3;
@@ -860,6 +862,8 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
 	 * @version v1.0
 	 */
 	public boolean onDown(MotionEvent e) {
+        if (localLOGV)
+            Log.v(TAG, "onDown:");
         // Kill any existing fling/scroll
         mFlingRunnable.stop(false);
 
@@ -887,6 +891,8 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
      * @version v1.0
      */
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        if (localLOGV)
+            Log.v(TAG, "onFling:" + (String.valueOf(e2.getX() - e1.getX())));
 
     	if (!mShouldCallbackDuringFling) {
             // We want to suppress selection changes
@@ -937,7 +943,9 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
 
-        if (localLOGV) Log.v(TAG, String.valueOf(e2.getX() - e1.getX()));
+        if (localLOGV)
+            Log.v(TAG, "onScroll:" + (String.valueOf(e2.getX() - e1.getX())));
+        getSelectedView().setBackgroundResource(0);
         
         /*
          * Now's a good time to tell our parent to stop intercepting our events!
@@ -984,6 +992,8 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
 	 * @version v1.0
 	 */
 	public boolean onSingleTapUp(MotionEvent e) {
+        if (localLOGV)
+            Log.v(TAG, "onSingleTapUp:");
         if (mDownTouchPosition >= 0) {
             
             // Pass the click so the client knows, if it wants to.
@@ -1008,6 +1018,8 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
 	 * @version v1.0
 	 */
 	public void onShowPress(MotionEvent e) {
+        if (localLOGV)
+            Log.v(TAG, "onShowPress:");
 	}
 		
 	
@@ -1270,6 +1282,7 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
             // We haven't been callbacking during the fling, so do it now
             super.selectionChanged();
         }
+        getSelectedView().setBackgroundResource(R.drawable.focus_select_item);
     	checkSelectionChanged();
         invalidate();
 

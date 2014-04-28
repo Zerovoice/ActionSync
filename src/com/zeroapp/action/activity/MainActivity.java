@@ -132,8 +132,9 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
             View view = getLayoutInflater().inflate(R.layout.item_carousel_view, null);
             ImageView icon = (ImageView) view.findViewById(R.id.itemsIcon);
             icon.setImageResource(data.get(i).getIcon());
-            TextView msg = (TextView) view.findViewById(R.id.itemsText);
-            msg.setText(data.get(i).getMsg());
+            // 删除图标下的标示分类名称的TextView
+//            TextView msg = (TextView) view.findViewById(R.id.itemsText);
+//            msg.setText(data.get(i).getMsg());
             mViews.add(view);
         }
 
@@ -175,12 +176,29 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     @Override
     public void onItemSelected(CarouselAdapter<?> parent, View view, int position, long id) {
-//        carousel.getChildAt(position).setBackgroundColor(Color.RED);
-        actionBarTitle.setText(ZeroAppApplication.mDatas.get(position).getMsg());
+        CategoryInfo c = ZeroAppApplication.mDatas.get(position);
+        actionBarTitle.setText(c.getMsg());
+        updateData(c);
         // Test code
-        Toast.makeText(this, " select position=" + position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, " select position=" + position, Toast.LENGTH_SHORT).show();
 
         // Test code
+    }
+
+    /**
+     * <p>
+     * Title: TODO.
+     * </p>
+     * <p>
+     * Description: TODO.
+     * </p>
+     * 
+     * @param c
+     */
+    private void updateData(CategoryInfo c) {
+        Log.i(TAG, "updateData--->" + c.getType());
+        // TODO get data via SDK.
+
     }
 
     /**
@@ -218,6 +236,8 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         Toast.makeText(this, " onclick position=" + position, Toast.LENGTH_SHORT).show();
         if (!data.get(position).isLogin()) {
             categoryDataControler.insert(data.get(position));
+            ImageView icon = (ImageView) view.findViewById(R.id.itemsIcon);
+            icon.setImageResource(0);
             adapter.notifyDataSetChanged();
         }
 

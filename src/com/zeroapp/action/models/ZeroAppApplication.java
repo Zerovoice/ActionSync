@@ -26,7 +26,7 @@ public class ZeroAppApplication extends Application {
         Log.d(TAG, "---------------------onCreate start-------------");
         categoryDataControler = new CategoryDataControler(this);
         mDatas = new ArrayList<CategoryInfo>();
-        DBUtils.initCategoryManager();
+        DBUtils.initCategoryManager();// 必须，否则会空指针
         // 初始化支持的社交类型，预置10种，此处可以控制
         for (int i = 0; i < Constants.category_msg.length; i++) {
 

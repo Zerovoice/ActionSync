@@ -4,15 +4,18 @@ import com.zeroapp.action.R;
 
 public class Constants {
 
-    public static int[] color_icon = new int[] { R.drawable.sina_weibo,
-            R.drawable.wechat_friend, R.drawable.wechat_moment, R.drawable.qzone,
-            R.drawable.tencent_weibo, R.drawable.renren, R.drawable.douban, R.drawable.evernote,
-            R.drawable.twitter, R.drawable.facebook };
-    public static int[] gray_icon = new int[] { R.drawable.sina_weibo_gray,
-            R.drawable.wechat_friend_gray, R.drawable.wechat_moment_gray, R.drawable.qzone_gray,
-            R.drawable.tencent_weibo_gray, R.drawable.renren_gray, R.drawable.douban_gray,
-            R.drawable.evernote_gray, R.drawable.twitter_gray, R.drawable.facebook_gray };
-    public static int[] category_msg = new int[] { R.string.sina_weibo, R.string.wechat_friend,
-            R.string.wechat_moment, R.string.qzone, R.string.tencent_weibo, R.string.renren,
-            R.string.douban, R.string.evernote, R.string.twitter, R.string.facebook };
+    public static int[] color_icon = new int[] { R.drawable.logo_sinaweibo, R.drawable.logo_wechat,
+            R.drawable.logo_wechatmoments, R.drawable.logo_qzone, R.drawable.logo_tencentweibo,
+            R.drawable.logo_renren, R.drawable.logo_douban, R.drawable.logo_evernote,
+            R.drawable.logo_twitter, R.drawable.logo_facebook };
+    public static int[] gray_icon = new int[] { R.drawable.logo_sinaweibo_gray,
+            R.drawable.logo_wechat_gray, R.drawable.logo_wechatmoments_gray,
+            R.drawable.logo_qzone_gray, R.drawable.logo_tencentweibo_gray,
+            R.drawable.logo_renren_gray, R.drawable.logo_douban_gray,
+            R.drawable.logo_evernote_gray, R.drawable.logo_twitter_gray,
+            R.drawable.logo_facebook_gray };
+    public static int[] category_msg = new int[] { R.string.string_sinaweibo,
+            R.string.string_wechat, R.string.string_wechatmoments, R.string.string_qzone,
+            R.string.string_tencentweibo, R.string.string_renren, R.string.string_douban,
+            R.string.string_evernote, R.string.string_twitter, R.string.string_facebook };
 }

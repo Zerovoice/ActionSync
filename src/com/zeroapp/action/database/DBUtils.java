@@ -13,13 +13,10 @@
 
 package com.zeroapp.action.database;
 
-import android.annotation.SuppressLint;
 import android.content.UriMatcher;
-import android.provider.ContactsContract.StatusUpdates;
 
 import java.util.HashMap;
 
-import com.zeroapp.action.R;
 
 
 /**

@@ -106,7 +106,7 @@ public class AbViewUtil {
 		}
 		int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED); 
 	    int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-	    v.measure(w, h);
+        v.measure(w, h);
 	}
 	
 	/**

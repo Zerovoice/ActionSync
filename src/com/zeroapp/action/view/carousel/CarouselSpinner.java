@@ -178,7 +178,8 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
      */
     public View getSelectedView() {
         if (mItemCount > 0 && mSelectedPosition >= 0) {
-            return getChildAt(mSelectedPosition - mFirstPosition);
+            View v = getChildAt(mSelectedPosition - mFirstPosition);
+            return v;
         } else {
             return null;
         }
@@ -471,43 +472,43 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
      */
     public int pointToPositionImage(int x, int y) {    	
 
-    	ArrayList<CarouselItemImage> fitting = new ArrayList<CarouselItemImage>();
-    	
-    	for(int i = 0; i < mAdapter.getCount(); i++){
-
-    		CarouselItemImage item = (CarouselItemImage)getChildAt(i);
-
-    		Matrix mm = item.getCIMatrix();
-    		float[] pts = new float[3];
-    		
-    		pts[0] = item.getLeft();
-    		pts[1] = item.getTop();
-    		pts[2] = 0;
-    		
-    		mm.mapPoints(pts);
-    		
-    		int mappedLeft = (int)pts[0];
-    		int mappedTop =  (int)pts[1];
-    		    		
-    		pts[0] = item.getRight();
-    		pts[1] = item.getBottom();
-    		pts[2] = 0;
-    		
-    		mm.mapPoints(pts);
-
-    		int mappedRight = (int)pts[0];
-    		int mappedBottom = (int)pts[1];
-    		
-    		if(mappedLeft < x && mappedRight > x & mappedTop < y && mappedBottom > y)
-    			fitting.add(item);
-    		
-    	}
-    	
-    	Collections.sort(fitting);
-    	
-    	if(fitting.size() != 0)
-    		return fitting.get(0).getIndex();
-    	else
+//    	ArrayList<CarouselItemImage> fitting = new ArrayList<CarouselItemImage>();
+//    	
+//    	for(int i = 0; i < mAdapter.getCount(); i++){
+//
+//    		CarouselItemImage item = (CarouselItemImage)getChildAt(i);
+//
+//    		Matrix mm = item.getCIMatrix();
+//    		float[] pts = new float[3];
+//    		
+//    		pts[0] = item.getLeft();
+//    		pts[1] = item.getTop();
+//    		pts[2] = 0;
+//    		
+//    		mm.mapPoints(pts);
+//    		
+//    		int mappedLeft = (int)pts[0];
+//    		int mappedTop =  (int)pts[1];
+//    		    		
+//    		pts[0] = item.getRight();
+//    		pts[1] = item.getBottom();
+//    		pts[2] = 0;
+//    		
+//    		mm.mapPoints(pts);
+//
+//    		int mappedRight = (int)pts[0];
+//    		int mappedBottom = (int)pts[1];
+//    		
+//    		if(mappedLeft < x && mappedRight > x & mappedTop < y && mappedBottom > y)
+//    			fitting.add(item);
+//    		
+//    	}
+//    	
+//    	Collections.sort(fitting);
+//    	
+//    	if(fitting.size() != 0)
+//    		return fitting.get(0).getIndex();
+//    	else
     		return mSelectedPosition;
     }
     
