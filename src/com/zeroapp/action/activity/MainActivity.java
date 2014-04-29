@@ -2,109 +2,76 @@
 package com.zeroapp.action.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.tencent.weibo.TencentWeibo;
 
 import com.zeroapp.action.R;
-import com.zeroapp.action.database.CategoryDataControler;
+import com.zeroapp.action.fragments.DeleteFragment;
+import com.zeroapp.action.fragments.LoginFragment;
 import com.zeroapp.action.models.CategoryInfo;
 import com.zeroapp.action.models.ZeroAppApplication;
 import com.zeroapp.action.view.carousel.CarouselAdapter;
 import com.zeroapp.action.view.carousel.CarouselAdapter.OnItemClickListener;
 import com.zeroapp.action.view.carousel.CarouselAdapter.OnItemLongClickListener;
 import com.zeroapp.action.view.carousel.CarouselAdapter.OnItemSelectedListener;
+import com.zeroapp.action.view.carousel.CarouselAdapter.OnScrollListener;
 import com.zeroapp.action.view.carousel.CarouselView;
 import com.zeroapp.action.view.carousel.CarouselViewAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
+/**
+ * <p>
+ * Title: MainActivity.
+ * </p>
+ * <p>
+ * Description: MainActivity.
+ * </p>
+ * 
+ * @author Bobby Zou(zouxiaobo@hisense.com) 2014-4-29.
+ * @version $Id$
+ */
 public class MainActivity extends FragmentActivity implements OnItemClickListener,
-        OnItemSelectedListener, OnItemLongClickListener {
+        OnItemSelectedListener, OnItemLongClickListener, OnScrollListener {
 
     private static final String TAG = "MainActivity";
     private CarouselView carousel;
     private TextView actionBarTitle;
     private List<CategoryInfo> data;
-    private CategoryDataControler categoryDataControler;
     private CarouselViewAdapter adapter;
+    public static FrameLayout topFrameLayout;
+    private LinearLayout mainLinearLayout;
+    /**
+     * if TopFrameLayout is not shown, scroll won't make an animotion.
+     */
+    private boolean isTopFrameLayoutShowing = false;
+    /**
+     * the Category which is selected or clicked or longclicked.
+     */
+    private CategoryInfo focusCategory;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         data = ZeroAppApplication.mDatas;
-        categoryDataControler = new CategoryDataControler(this);
         // 初始化ShareSDK
         ShareSDK.initSDK(this);
 
         initView();
         initCarousel();
-
-        // Test Code:获取所有支持平台实例
-//        Platform[] platformList = ShareSDK.getPlatformList(this);
-//        if (platformList != null) {
-//            for (int i = 0; i < platformList.length; i++) {
-//                String name = platformList[i].getName();
-//                Log.i(TAG, "platformList name" + i + ":" + name);
-//            }
-//        }
-        // Test Code:获取所有支持平台实例结束
-
-        // Test Code:获取单个支持平台实例
-        Platform weibo = ShareSDK.getPlatform(this, TencentWeibo.NAME);
-        if (weibo != null) {
-            final String name = weibo.getName();
-            Log.i(TAG, "plat name" + ":" + name);
-            weibo.setPlatformActionListener(new PlatformActionListener() {
-
-                @Override
-                public void onError(Platform arg0, int arg1, Throwable onError) {
-                    Log.i(TAG, "plat name" + ":" + name + "onError");
-                    onError.printStackTrace();
-
-                }
-
-                @Override
-                public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
-                    Log.i(TAG, "plat name" + ":" + name + "onComplete");
-                    Set<String> keyset = arg2.keySet();
-                    if (keyset != null) {
-                        Iterator iterator = keyset.iterator();
-                        while(iterator.hasNext()){
-                            String key = (String) iterator.next();
-                            String value = arg2.get(key).toString();
-                            Log.i(TAG, "key" + ":" + key);
-                            Log.i(TAG, "value" + ":" + value);
-
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onCancel(Platform arg0, int arg1) {
-                    Log.i(TAG, "plat name" + ":" + name + "onCancel");
-
-                }
-            });
-//            weibo.authorize();
-        }
-        // Test Code:获取单个支持平台实例结束
 
 	}
 
@@ -112,16 +79,18 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      * 初始化数据
      */
     private void initView() {
-        carousel = (CarouselView) findViewById(R.id.carousel);
-        actionBarTitle = (TextView) findViewById(R.id.action_bar_title_tv);
+        mainLinearLayout = (LinearLayout) findViewById(R.id.main_liner_layout);
+        carousel = (CarouselView) mainLinearLayout.findViewById(R.id.carousel);
+        actionBarTitle = (TextView) mainLinearLayout.findViewById(R.id.action_bar_title_tv);
+        topFrameLayout = (FrameLayout) findViewById(R.id.topfl_container);
 	}
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: initCarousel.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: initCarousel.
      * </p>
      * 
      */
@@ -142,17 +111,9 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         carousel.setOnItemClickListener(this);
         carousel.setOnItemLongClickListener(this);
         carousel.setOnItemSelectedListener(this);
+        carousel.setOnScrollListener(this);
         carousel.setAdapter(adapter);
     }
-	
-	
-	/**
-	 * 替换fragment
-	 */
-	public void replaceFragment(Fragment fragment){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl_Container, fragment)
-                .commit();
-	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -163,10 +124,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: onItemSelected.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: onItemSelected.
      * </p>
      * 
      * @param parent
@@ -176,37 +137,17 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     @Override
     public void onItemSelected(CarouselAdapter<?> parent, View view, int position, long id) {
-        CategoryInfo c = ZeroAppApplication.mDatas.get(position);
+        CategoryInfo c = data.get(position);
         actionBarTitle.setText(c.getMsg());
-        updateData(c);
-        // Test code
-//        Toast.makeText(this, " select position=" + position, Toast.LENGTH_SHORT).show();
-
-        // Test code
+        update(c);
     }
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: onNothingSelected.
      * </p>
      * <p>
-     * Description: TODO.
-     * </p>
-     * 
-     * @param c
-     */
-    private void updateData(CategoryInfo c) {
-        Log.i(TAG, "updateData--->" + c.getType());
-        // TODO get data via SDK.
-
-    }
-
-    /**
-     * <p>
-     * Title: TODO.
-     * </p>
-     * <p>
-     * Description: TODO.
+     * Description: onNothingSelected.
      * </p>
      * 
      * @param parent
@@ -218,10 +159,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: onItemClick.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: onItemClick.
      * </p>
      * 
      * @param parent
@@ -231,29 +172,16 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     @Override
     public void onItemClick(CarouselAdapter<?> parent, View view, int position, long id) {
-
-        // Test code
-        Toast.makeText(this, " onclick position=" + position, Toast.LENGTH_SHORT).show();
-        if (!data.get(position).isLogin()) {
-            categoryDataControler.insert(data.get(position));
-            ImageView icon = (ImageView) view.findViewById(R.id.itemsIcon);
-            icon.setImageResource(0);
-            adapter.notifyDataSetChanged();
-        }
-
-//        if (data.get(position).isLogin()) {
-//            categoryDataControler.delete(data.get(position));
-//        }
-        // Test code
-
+        CategoryInfo c = data.get(position);
+        check(c);
     }
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: onItemLongClick.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: onItemLongClick.
      * </p>
      * 
      * @param parent
@@ -264,28 +192,145 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     @Override
     public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
-        // Test code
-        Toast.makeText(this, " onLongclick position=" + position, Toast.LENGTH_SHORT).show();
-        if (data.get(position).isLogin()) {
-            categoryDataControler.delete(data.get(position));
-        }
-        // Test code
+        CategoryInfo c = data.get(position);
+        delete(c);
         return false;
     }
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: onScroll.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: onScroll.
      * </p>
      * 
      */
+    @Override
+    public void onScroll() {
+        hideFragment();
+
+    }
+
+    /**
+     * <p>
+     * Title: update.
+     * </p>
+     * <p>
+     * Description: update.
+     * </p>
+     * 
+     * @param c
+     */
+    private void update(CategoryInfo c) {
+        Log.i(TAG, "updateData--->" + c.getMsg());
+        setFocusCategory(c);
+        // TODO get data via SDK.
+
+    }
+
+    /**
+     * <p>
+     * Title: check.
+     * </p>
+     * <p>
+     * Description: check.
+     * </p>
+     * 
+     * @param c
+     */
+    private void check(CategoryInfo c) {
+        Log.i(TAG, "check--->" + c.getMsg());
+        setFocusCategory(c);
+        // TODO get data via SDK.
+        showFragment(0);
+
+    }
+
+    /**
+     * <p>
+     * Title: delete.
+     * </p>
+     * <p>
+     * Description: delete.
+     * </p>
+     * 
+     * @param c
+     */
+    private void delete(CategoryInfo c) {
+        Log.i(TAG, "delete--->" + c.getMsg());
+        setFocusCategory(c);
+        // TODO get data via SDK.
+        showFragment(1);
+    }
+
+    /**
+     * <p>
+     * Title: showFragment.
+     * </p>
+     * <p>
+     * Description: showFragment.
+     * </p>
+     * 
+     * @param i
+     *            0-show login fragment;1-show delete fragment;
+     */
+    private void showFragment(int i) {
+        Log.i(TAG, "showFragment:" + i);
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        switch (i) {
+            case 0:
+                t.replace(R.id.topfl_container, new LoginFragment()).commit();
+                break;
+            case 1:
+                t.replace(R.id.topfl_container, new DeleteFragment()).commit();
+                break;  
+            default:
+                
+                break;
+        }
+        int h = topFrameLayout.getHeight();
+        Animation inAnimotion = new TranslateAnimation(0, 0, -h, 0);
+        inAnimotion.setFillAfter(true);
+        inAnimotion.setDuration(1000);
+        topFrameLayout.startAnimation(inAnimotion);
+        isTopFrameLayoutShowing = true;
+        
+    }
+
+    /**
+     * <p>
+     * Title: hideFragment.
+     * </p>
+     * <p>
+     * Description: hideFragment.
+     * </p>
+     * 
+     */
+    private void hideFragment() {
+        if (isTopFrameLayoutShowing) {
+            int h = topFrameLayout.getHeight();
+            Animation inAnimotion = new TranslateAnimation(0, 0, 0, -h);
+            inAnimotion.setFillAfter(true);
+            inAnimotion.setDuration(1000);
+            topFrameLayout.setAnimation(inAnimotion);
+            isTopFrameLayoutShowing = false;
+        }
+    }
+
+    public CategoryInfo getFocusCategory() {
+        return focusCategory;
+    }
+
+    public void setFocusCategory(CategoryInfo focusCategory) {
+        this.focusCategory = focusCategory;
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // 结束ShareSDK的统计功能并释放资源
         ShareSDK.stopSDK(this);
     }
+
 }

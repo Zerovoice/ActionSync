@@ -140,9 +140,11 @@ public class CarouselViewAdapter extends BaseAdapter {
             AbViewUtil.measureView(view);
             int w = view.getMeasuredWidth();
             int h = view.getMeasuredHeight();
-            int l = w >= h ? w : h;
-            Log.i("zxb", "h = " + h + ";w = " + w);
-            LayoutParams mLayoutParams = new LayoutParams(l + 10, l + 10);
+            if (w != h) {
+                w = w >= h ? w : h;
+                Log.i("zxb", "h = " + h + ";w = " + w);
+            }
+            LayoutParams mLayoutParams = new LayoutParams(w + 10, w + 10);
             mLayoutParams.gravity = Gravity.CENTER;
             itemView.addView(view, mLayoutParams);
 

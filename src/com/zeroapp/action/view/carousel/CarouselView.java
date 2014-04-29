@@ -103,6 +103,11 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
      * The position of the item that received the user's down touch.
      */
     private int mDownTouchPosition;
+
+    /**
+     * The position of the item that received the user's last down touch.
+     */
+    private int mLastTouchPosition = -1;
 	
     /**
      * The view of the item that received the user's down touch.
@@ -699,6 +704,23 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
             super.selectionChanged();
         }
     }    
+
+    /**
+     * <p>
+     * Title: TODO.
+     * </p>
+     * <p>
+     * Description: TODO.
+     * </p>
+     * 
+     */
+    @Override
+    void onScroll() {
+        // forget last view when scroll,so last view can be touch again.
+        mLastTouchPosition = -1;
+        super.onScroll();
+
+    }
 	
     /**
      * 描述：TODO
@@ -945,7 +967,13 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
 
         if (localLOGV)
             Log.v(TAG, "onScroll:" + (String.valueOf(e2.getX() - e1.getX())));
+        // 删除view的背景
         getSelectedView().setBackgroundResource(0);
+        onScroll();
+        // 隐藏topFrameLayout
+//        if (MainActivity.topFrameLayout != null) {
+//            MainActivity.topFrameLayout.setVisibility(View.GONE);
+//        }
         
         /*
          * Now's a good time to tell our parent to stop intercepting our events!
@@ -984,13 +1012,14 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
      }
 	
 	
-	/**
-	 * 描述：TODO
-	 * @see android.view.GestureDetector.OnGestureListener#onSingleTapUp(android.view.MotionEvent)
-	 * @author: zhaoqp
-	 * @date：2013-11-28 上午11:14:35
-	 * @version v1.0
-	 */
+    /**
+     * 描述：TODO
+     * 
+     * @see android.view.GestureDetector.OnGestureListener#onSingleTapUp(android.view.MotionEvent)
+     * @author: zhaoqp
+     * @date：2013-11-28 上午11:14:35
+     * @version v1.0
+     */
 	public boolean onSingleTapUp(MotionEvent e) {
         if (localLOGV)
             Log.v(TAG, "onSingleTapUp:");
@@ -998,8 +1027,11 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
             
             // Pass the click so the client knows, if it wants to.
             if (mShouldCallbackOnUnselectedItemClick || mDownTouchPosition == mSelectedPosition) {
-                performItemClick(mDownTouchView, mDownTouchPosition, mAdapter
-                        .getItemId(mDownTouchPosition));
+                if (mLastTouchPosition != mDownTouchPosition) {
+                    mLastTouchPosition = mDownTouchPosition;
+                    performItemClick(mDownTouchView, mDownTouchPosition,
+                            mAdapter.getItemId(mDownTouchPosition));
+                }
             }
             
             return true;
@@ -1088,6 +1120,8 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
         boolean handled = false;
         
         if (mOnItemLongClickListener != null) {
+            // to forget last touch view so it can click again.
+            mLastTouchPosition = -1;
             handled = mOnItemLongClickListener.onItemLongClick(this, mDownTouchView,
                     mDownTouchPosition, id);
         }

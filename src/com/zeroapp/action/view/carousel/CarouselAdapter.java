@@ -23,11 +23,11 @@ import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewDebug;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Adapter;
 import android.widget.ListView;
@@ -112,6 +112,8 @@ public abstract class  CarouselAdapter <T extends Adapter> extends ViewGroup {
      */
     OnItemLongClickListener mOnItemLongClickListener;
 
+    OnScrollListener mOnScrollListener;
+
     /** True if the data has changed since the last layout. */
     boolean mDataChanged;
 
@@ -190,6 +192,7 @@ public abstract class  CarouselAdapter <T extends Adapter> extends ViewGroup {
      * This is used to layout the children during a layout pass.
      */
     boolean mBlockLayoutRequests = false;
+
 
     /**
      * Instantiates a new carousel adapter.
@@ -384,9 +387,22 @@ public abstract class  CarouselAdapter <T extends Adapter> extends ViewGroup {
         return mOnItemSelectedListener;
     }
 
+    public interface OnScrollListener {
+
+        void onScroll();
+    }
+
+    public void setOnScrollListener(OnScrollListener listener) {
+        mOnScrollListener = listener;
+    }
+
+    public OnScrollListener getOnScrollListener() {
+        return mOnScrollListener;
+    }
+
     /**
      * Extra menu information provided to the.
-     *
+     * 
      * {@link android.view.View.OnCreateContextMenuListener#onCreateContextMenu(ContextMenu, View, ContextMenuInfo) }
      * callback when a context menu is brought up for this CarouselAdapter.
      */
@@ -964,6 +980,12 @@ public abstract class  CarouselAdapter <T extends Adapter> extends ViewGroup {
         }
     }
 
+    void onScroll() {
+        if (mOnScrollListener != null) {
+            mOnScrollListener.onScroll();
+        }
+
+    }
     /**
      * 描述：TODO
      * @see android.view.ViewGroup#dispatchPopulateAccessibilityEvent(android.view.accessibility.AccessibilityEvent)

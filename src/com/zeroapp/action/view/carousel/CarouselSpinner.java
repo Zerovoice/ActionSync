@@ -678,5 +678,6 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
             }
             scrapHeap.clear();
         }
-    }	
+    }
+
 }
