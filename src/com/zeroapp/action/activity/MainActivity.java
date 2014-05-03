@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.sharesdk.framework.ShareSDK;
-
 import com.zeroapp.action.R;
 import com.zeroapp.action.fragments.DeleteFragment;
 import com.zeroapp.action.fragments.LoginFragment;
@@ -68,7 +66,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         setContentView(R.layout.activity_main);
         data = ZeroAppApplication.mDatas;
         // 初始化ShareSDK
-        ShareSDK.initSDK(this);
+//        ShareSDK.initSDK(this);
 
         initView();
         initCarousel();
@@ -243,6 +241,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         Log.i(TAG, "check--->" + c.getMsg());
         setFocusCategory(c);
         // TODO get data via SDK.
+
         showFragment(0);
 
     }
@@ -330,7 +329,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
     protected void onDestroy() {
         super.onDestroy();
         // 结束ShareSDK的统计功能并释放资源
-        ShareSDK.stopSDK(this);
+//        ShareSDK.stopSDK(this);
     }
 
 }
