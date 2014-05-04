@@ -14,6 +14,10 @@
 package com.zeroapp.action.adepter;
 
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+
+import cn.sharesdk.framework.authorize.AuthorizeAdapter;
 
 /**
  * <p>Title: TODO.</p>
@@ -23,32 +27,29 @@ import android.view.View;
  * @version $Id$
  */
 
-public class MyAuthPageAdapter {// extends AuthorizeAdapter
-
-    private static MyAuthPageAdapter instanse;
-    View rv;
+public class MyAuthPageAdapter extends AuthorizeAdapter {
 
     public void onCreate() {
-//        String platName = getPlatformName();
-//        // 隐藏标题栏右部的ShareSDK Logo
-//        hideShareSDKLogo();
-//
+        // 隐藏标题栏右部的ShareSDK Logo
+        hideShareSDKLogo();
+
+        // 设置标题栏文字
 //        TitleLayout llTitle = getTitleLayout();
 //        llTitle.getTvTitle().setText("nihao");
-//        // 使弹出动画失效，只能在onCreate中调用，否则无法起作用
-//        disablePopUpAnimation();
-//        // 下面的代码演示如何设置自定义的授权页面打开动画
-////        if ("Douban".equals(platName)) {
-////            stopFinish = true;
-////            disablePopUpAnimation();
-////            View rv = (View) getBodyView().getParent();
-////            TranslateAnimation ta = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1,
-////                    Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
-////                    Animation.RELATIVE_TO_SELF, 0);
-////            ta.setDuration(500);
-////            rv.setAnimation(ta);
-////        }
-//        rv = (View) getBodyView().getParent();
+
+        // 使弹出动画失效，只能在onCreate中调用，否则无法起作用
+        disablePopUpAnimation();
+
+
+        // 下面的代码演示如何设置自定义的授权页面打开动画(顶端向下)
+        if (true) {
+            View rv = (View) getBodyView().getParent();
+            TranslateAnimation ta = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0,
+                    Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1,
+                    Animation.RELATIVE_TO_SELF, 0);
+            ta.setDuration(500);
+            rv.setAnimation(ta);
+        }
     }
 
 }

@@ -15,6 +15,17 @@ package com.zeroapp.action.database;
 
 import android.content.UriMatcher;
 
+import cn.sharesdk.douban.Douban;
+import cn.sharesdk.evernote.Evernote;
+import cn.sharesdk.facebook.Facebook;
+import cn.sharesdk.renren.Renren;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qzone.QZone;
+import cn.sharesdk.tencent.weibo.TencentWeibo;
+import cn.sharesdk.twitter.Twitter;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
+
 import java.util.HashMap;
 
 
@@ -46,16 +57,16 @@ public class DBUtils {
     public static final int CODE_FACEBOOK = 9;
     
     
-    public static final String TABLE_SINA_WEIBO = "sina_weibo";
-    public static final String TABLE_WECHAT_FRIEND = "wechat_friend";
-    public static final String TABLE_WECHAT_MOMENT = "wechat_moment";
-    public static final String TABLE_QZONE = "qzone";
-    public static final String TABLE_TENCENT_WEIBO = "tencent_weibo";
-    public static final String TABLE_RENREN = "renren";
-    public static final String TABLE_DOUBAN = "douban";
-    public static final String TABLE_EVERNOTE = "evernote";
-    public static final String TABLE_TWITTER = "twitter";
-    public static final String TABLE_FACEBOOK = "facebook";
+    public static final String TABLE_SINA_WEIBO = SinaWeibo.NAME;
+    public static final String TABLE_WECHAT_FRIEND = Wechat.NAME;
+    public static final String TABLE_WECHAT_MOMENT = WechatMoments.NAME;
+    public static final String TABLE_QZONE = QZone.NAME;
+    public static final String TABLE_TENCENT_WEIBO = TencentWeibo.NAME;
+    public static final String TABLE_RENREN = Renren.NAME;
+    public static final String TABLE_DOUBAN = Douban.NAME;
+    public static final String TABLE_EVERNOTE = Evernote.NAME;
+    public static final String TABLE_TWITTER = Twitter.NAME;
+    public static final String TABLE_FACEBOOK = Facebook.NAME;
 
 
     public static final String _ID = "_id";

@@ -1027,11 +1027,14 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
             
             // Pass the click so the client knows, if it wants to.
             if (mShouldCallbackOnUnselectedItemClick || mDownTouchPosition == mSelectedPosition) {
-                if (mLastTouchPosition != mDownTouchPosition) {
-                    mLastTouchPosition = mDownTouchPosition;
+                // 如果要点击同一个item不联系相应，则用这段代码---byZXB;
+//                if (mLastTouchPosition != mDownTouchPosition) {
+//                    mLastTouchPosition = mDownTouchPosition;
+//                    performItemClick(mDownTouchView, mDownTouchPosition,
+//                            mAdapter.getItemId(mDownTouchPosition));
+//                }
                     performItemClick(mDownTouchView, mDownTouchPosition,
                             mAdapter.getItemId(mDownTouchPosition));
-                }
             }
             
             return true;

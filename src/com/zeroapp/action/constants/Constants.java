@@ -19,6 +19,7 @@ public class Constants {
             R.string.string_tencentweibo, R.string.string_renren, R.string.string_douban,
             R.string.string_evernote, R.string.string_twitter, R.string.string_facebook };
 
+
     public class WeiboConstants {
 
         /** 当前 DEMO 应用的 APP_KEY，第三方应用应该使用自己的 APP_KEY 替换该 APP_KEY */

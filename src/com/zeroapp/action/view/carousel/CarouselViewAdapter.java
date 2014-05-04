@@ -43,57 +43,61 @@ public class CarouselViewAdapter extends BaseAdapter {
 	private Context mContext;
 	
 	/** The m views. */
-	private List<View> mViews;
+    private List<View> mViews;
 	
 	/** The m reflected. */
 	private boolean mReflected = true;
 	
-	/** The m carousel image views. */
-	private CarouselItemView[]  mCarouselItemViews = null;
+    /** The m carousel image views. */
+    private CarouselItemView[] mCarouselItemViews = null;
 
-	/**
-	 * Instantiates a new carousel view adapter.
-	 *
-	 * @param c the c
-	 * @param views the views
-	 * @param reflected 反射镜面效果
-	 */
-	public CarouselViewAdapter(Context c,List<View> views,boolean reflected) {
+    /**
+     * Instantiates a new carousel view adapter.
+     * 
+     * @param c
+     *            the c
+     * @param views
+     *            the views
+     * @param reflected
+     *            反射镜面效果
+     */
+    public CarouselViewAdapter(Context c, List<View> views, boolean reflected) {
 		mContext = c;
-		mViews = views;
-		mReflected = reflected;
-		setImages();
+        mViews = views;
+        mReflected = reflected;
+        setImages();
 	}
 
-	/**
-	 * 描述：TODO.
-	 *
-	 * @return the count
-	 * @see android.widget.Adapter#getCount()
-	 * @author: zhaoqp
-	 * @date：2013-8-22 下午4:07:39
-	 * @version v1.0
-	 */
+    /**
+     * 描述：TODO.
+     * 
+     * @return the count
+     * @see android.widget.Adapter#getCount()
+     * @author: zhaoqp
+     * @date：2013-8-22 下午4:07:39
+     * @version v1.0
+     */
 	public int getCount() {
-		if (mViews == null){
-			return 0;
-		}else{
-			return mViews.size();
-		}
+        if (mViews == null) {
+            return 0;
+        } else {
+            return mViews.size();
+        }
 	}
 
-	/**
-	 * 描述：TODO.
-	 *
-	 * @param position the position
-	 * @return the item
-	 * @see android.widget.Adapter#getItem(int)
-	 * @author: zhaoqp
-	 * @date：2013-8-22 下午4:07:39
-	 * @version v1.0
-	 */
+    /**
+     * 描述：TODO.
+     * 
+     * @param position
+     *            the position
+     * @return the item
+     * @see android.widget.Adapter#getItem(int)
+     * @author: zhaoqp
+     * @date：2013-8-22 下午4:07:39
+     * @version v1.0
+     */
 	public Object getItem(int position) {
-		return position;
+        return position;
 	}
 
 	/**
@@ -123,20 +127,21 @@ public class CarouselViewAdapter extends BaseAdapter {
 	 * @version v1.0
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
-		convertView = mCarouselItemViews[position];
-		return convertView;
-	}
-	
-	/**
-	 * Sets the images.
-	 */
-	public void setImages(){
-		mCarouselItemViews = new CarouselItemView[mViews.size()];
-		for(int i = 0; i< mViews.size(); i++){
-			View view = mViews.get(i);
-			CarouselItemView itemView = new CarouselItemView(mContext);
-			itemView.setIndex(i);
-			
+//        Log.i("zxb", "getView-->position: " + position);
+        convertView = mCarouselItemViews[position];
+        return convertView;
+    }
+
+    /**
+     * Sets the images.
+     */
+    public void setImages() {
+        mCarouselItemViews = new CarouselItemView[mViews.size()];
+        for (int i = 0; i < mViews.size(); i++) {
+            View view = mViews.get(i);
+            CarouselItemView itemView = new CarouselItemView(mContext);
+            itemView.setIndex(i);
+
             AbViewUtil.measureView(view);
             int w = view.getMeasuredWidth();
             int h = view.getMeasuredHeight();
@@ -148,15 +153,13 @@ public class CarouselViewAdapter extends BaseAdapter {
             mLayoutParams.gravity = Gravity.CENTER;
             itemView.addView(view, mLayoutParams);
 
-			mCarouselItemViews[i] = itemView;
-			if(i==0){
+            mCarouselItemViews[i] = itemView;
+            if (i == 0) {
                 // 为初始化的第一个图标添加焦点
                 itemView.setBackgroundResource(R.drawable.focus_select_item);
-			}
-		}
-		
+            }
+        }
+
 	}
-	
-	
 
 }
