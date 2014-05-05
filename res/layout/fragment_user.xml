@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <TextView 
-        android:id="@+id/user_test"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:text="this is user fragment"
-        android:layout_gravity="center"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/not_login_img" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/not_login_image"
         />
+    <LinearLayout
+        android:id="@+id/login_layout" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:orientation="vertical">
+            <TextView 
+                android:id="@+id/user_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="this is user fragment"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+            <ListView
+                android:id="@+id/user_lv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                android:visibility="gone">
+                
+            </ListView>
+        
+    </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

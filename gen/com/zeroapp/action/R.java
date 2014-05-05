@@ -97,31 +97,35 @@ public final class R {
         public static final int logo_yixin=0x7f02003a;
         public static final int logo_yixinmoments=0x7f02003b;
         public static final int logo_youdao=0x7f02003c;
-        public static final int pin=0x7f02003d;
-        public static final int rbtn_home_tab_menu=0x7f02004a;
-        public static final int selector_side_menu=0x7f02003e;
-        public static final int share_tb_back=0x7f02003f;
-        public static final int share_vp_back=0x7f020040;
-        public static final int ssdk_auth_title_back=0x7f020041;
-        public static final int ssdk_back_arr=0x7f020042;
-        public static final int ssdk_logo=0x7f020043;
-        public static final int ssdk_oks_ptr_ptr=0x7f020044;
-        public static final int ssdk_title_div=0x7f020045;
-        public static final int title_back=0x7f020046;
-        public static final int title_shadow=0x7f020047;
-        public static final int transparent=0x7f020049;
-        public static final int white_point=0x7f020048;
+        public static final int not_login_image=0x7f02003d;
+        public static final int pin=0x7f02003e;
+        public static final int rbtn_home_tab_menu=0x7f02004b;
+        public static final int selector_side_menu=0x7f02003f;
+        public static final int share_tb_back=0x7f020040;
+        public static final int share_vp_back=0x7f020041;
+        public static final int ssdk_auth_title_back=0x7f020042;
+        public static final int ssdk_back_arr=0x7f020043;
+        public static final int ssdk_logo=0x7f020044;
+        public static final int ssdk_oks_ptr_ptr=0x7f020045;
+        public static final int ssdk_title_div=0x7f020046;
+        public static final int title_back=0x7f020047;
+        public static final int title_shadow=0x7f020048;
+        public static final int transparent=0x7f02004a;
+        public static final int white_point=0x7f020049;
     }
     public static final class id {
         public static final int action_bar_title_tv=0x7f090001;
-        public static final int action_settings=0x7f090008;
+        public static final int action_settings=0x7f09000b;
         public static final int carousel=0x7f090004;
         public static final int fl_container=0x7f090003;
         public static final int ibtn_left_menu=0x7f090000;
-        public static final int itemsIcon=0x7f090007;
+        public static final int itemsIcon=0x7f09000a;
+        public static final int login_layout=0x7f090007;
         public static final int main_liner_layout=0x7f090002;
+        public static final int not_login_img=0x7f090006;
         public static final int topfl_container=0x7f090005;
-        public static final int user_test=0x7f090006;
+        public static final int user_lv=0x7f090009;
+        public static final int user_test=0x7f090008;
     }
     public static final class layout {
         public static final int actionbar_home=0x7f030000;

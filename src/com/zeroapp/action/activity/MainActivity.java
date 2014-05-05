@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,7 +33,6 @@ import com.zeroapp.action.view.carousel.CarouselAdapter.OnScrollListener;
 import com.zeroapp.action.view.carousel.CarouselView;
 import com.zeroapp.action.view.carousel.CarouselViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,8 +70,6 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         data = ZeroAppApplication.mDatas;
-        // 初始化ShareSDK
-        ShareSDK.initSDK(this);
 
         initView();
         initCarousel();
@@ -101,22 +97,20 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     private void initCarousel() {
         // 不支持的动态添加adapter.notifyDataSetChanged()增强滑动的流畅
-        List<View> mViews = new ArrayList<View>();
-        for (int i = 0; i < data.size(); i++) {
-            View view = getLayoutInflater().inflate(R.layout.item_carousel_view, null);
-            ImageView icon = (ImageView) view.findViewById(R.id.itemsIcon);
-            icon.setImageResource(data.get(i).getIcon());
-            // 删除图标下的标示分类名称的TextView
-//            TextView msg = (TextView) view.findViewById(R.id.itemsText);
-//            msg.setText(data.get(i).getMsg());
-            mViews.add(view);
-        }
-
-        adapter = new CarouselViewAdapter(this, mViews, false);
+        adapter = new CarouselViewAdapter(this, data, false);
         carousel.setOnItemClickListener(this);
         carousel.setOnItemLongClickListener(this);
         carousel.setOnItemSelectedListener(this);
         carousel.setOnScrollListener(this);
+        carousel.setAdapter(adapter);
+    }
+
+    private void updateCarouselView() {
+        ZeroAppApplication.getInstance().updateViewDatas();
+        data = ZeroAppApplication.mDatas;
+//        adapter.setImages(data);
+        // 以下处理可以解决UI不刷新，但是基本上就是重新加载carousel。
+        adapter = new CarouselViewAdapter(this, data, false);
         carousel.setAdapter(adapter);
     }
 	
@@ -144,6 +138,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
     public void onItemSelected(CarouselAdapter<?> parent, View view, int position, long id) {
         CategoryInfo c = data.get(position);
         actionBarTitle.setText(c.getMsg());
+
         switching(c);
     }
 
@@ -318,6 +313,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
                     Log.i(TAG, "onComplete " + "ACTION_AUTHORIZING");
                     CategoryDataControler categoryDataControler = new CategoryDataControler(this);
                     categoryDataControler.insert(getFocusCategory());
+                    updateCarouselView();
                 } else if (msg.arg2 == 8) {
                     Log.i(TAG, "onComplete " + "ACTION_USER_INFOR");
                 }

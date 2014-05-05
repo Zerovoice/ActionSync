@@ -45,7 +45,6 @@ public class LoginFragment extends Fragment implements PlatformActionListener {
     private static final String TAG = "LoginFragment";
 
     private MainActivity mainActivity;
-
     private CategoryInfo categoryInfo;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

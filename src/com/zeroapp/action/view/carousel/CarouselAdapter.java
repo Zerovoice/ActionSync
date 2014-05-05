@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.os.SystemClock;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -31,6 +32,8 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Adapter;
 import android.widget.ListView;
+
+import com.zeroapp.action.R;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -856,6 +859,7 @@ public abstract class  CarouselAdapter <T extends Adapter> extends ViewGroup {
          */
         @Override
         public void onChanged() {
+            Log.i(VIEW_LOG_TAG, "onChanged start");
             mDataChanged = true;
             mOldItemCount = mItemCount;
             mItemCount = getAdapter().getCount();
@@ -871,6 +875,7 @@ public abstract class  CarouselAdapter <T extends Adapter> extends ViewGroup {
             }
             checkFocus();
             requestLayout();
+            Log.i(VIEW_LOG_TAG, "onChanged over");
         }
 
         /**
@@ -973,6 +978,7 @@ public abstract class  CarouselAdapter <T extends Adapter> extends ViewGroup {
         int selection = this.getSelectedItemPosition();
         if (selection >= 0) {
             View v = getSelectedView();
+            v.setBackgroundResource(R.drawable.focus_select_item);
             mOnItemSelectedListener.onItemSelected(this, v, selection,
                     getAdapter().getItemId(selection));
         } else {

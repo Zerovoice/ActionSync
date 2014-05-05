@@ -20,6 +20,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
+
+import com.zeroapp.action.constants.Config;
 import com.zeroapp.action.models.CategoryInfo;
 
 /**
@@ -52,20 +56,22 @@ public class CategoryDataControler {
 
     public void insert(CategoryInfo categoryInfo) {
         Log.i(TAG, "CategoryDataControler -> insert()");
-        if (categoryInfo == null) {
-            Log.i(TAG, "insert -> categoryInfo == null");
-            return;
+        if (Config.useDb) {
+            if (categoryInfo == null) {
+                Log.i(TAG, "insert -> categoryInfo == null");
+                return;
+            }
+            int type = categoryInfo.getType();
+            Log.i(TAG, "insert -> type== " + type);
+            ContentValues mContentValues = new ContentValues();
+
+            mContentValues.put("username", categoryInfo.getUserName());
+            mContentValues.put("pwd", categoryInfo.getPwd());
+            mContentValues.put("islogin", 1);
+            mContentResolver.insert(
+                    Uri.parse("content://" + DBUtils.AUTHORITY + "/"
+                            + DBUtils.categoryManager.get(type)), mContentValues);
         }
-        int type = categoryInfo.getType();
-        Log.i(TAG, "insert -> type== " + type);
-        ContentValues mContentValues = new ContentValues();
-        
-        mContentValues.put("username", categoryInfo.getUserName());
-        mContentValues.put("pwd", categoryInfo.getPwd());
-        mContentValues.put("islogin", 1);
-        mContentResolver.insert(Uri.parse("content://" + DBUtils.AUTHORITY + "/"
-                + DBUtils.categoryManager.get(type)), mContentValues);
-        categoryInfo.setLogin(true);// TODO 数据库更新成功时要更新应用数据,但是要放到UI里，不能在数据层做这个事情
     }
 
     /**
@@ -81,19 +87,26 @@ public class CategoryDataControler {
      */
     public void delete(CategoryInfo categoryInfo) {
         Log.i(TAG, "CategoryDataControler -> delete()");
-        if (categoryInfo == null) {
-            Log.i(TAG, "delete -> categoryInfo == null");
-            return;
+        if (Config.useDb) {
+            if (categoryInfo == null) {
+                Log.i(TAG, "delete -> categoryInfo == null");
+                return;
+            }
+            int type = categoryInfo.getType();
+            Log.i(TAG, "delete -> type== " + type);
+            ContentValues mContentValues = new ContentValues();
+            mContentValues.put("islogin", 0);
+            mContentResolver.update(
+                    Uri.parse("content://" + DBUtils.AUTHORITY + "/"
+                            + DBUtils.categoryManager.get(type)), mContentValues, null, null);
         }
-        int type = categoryInfo.getType();
-        Log.i(TAG, "delete -> type== " + type);
-        ContentValues mContentValues = new ContentValues();
-        mContentValues.put("islogin", 0);
-        mContentResolver.update(Uri.parse("content://" + DBUtils.AUTHORITY + "/"
-                + DBUtils.categoryManager.get(type)), mContentValues, null, null);
     }
 
     public void update() {
+        Log.i(TAG, "CategoryDataControler -> update()");
+        if (Config.useDb) {
+
+        }
     }
 
     public CategoryInfo query(int type) {
@@ -113,26 +126,37 @@ public class CategoryDataControler {
      */
     private CategoryInfo growCategoryInfo(int type) {
         CategoryInfo categoryInfo = new CategoryInfo();
-        Cursor c = null;
-        c = mContentResolver.query(Uri.parse("content://" + DBUtils.AUTHORITY + "/"
-                + DBUtils.categoryManager.get(type)), null, null, null, null);
-        while (c.moveToLast()) {
-            String username = c.getString(c.getColumnIndex("username"));
-            String pwd = c.getString(c.getColumnIndex("pwd"));
-            int islogin = c.getInt(c.getColumnIndex("islogin"));
-            Log.d(TAG, "username === " + username);
-            Log.d(TAG, "pwd === " + pwd);
-            Log.d(TAG, "islogin === " + islogin);
-            Log.d(TAG, "type === " + type);
-            categoryInfo.setUserName(username);
-            categoryInfo.setPwd(pwd);
-            categoryInfo.setType(type);
-            if (islogin == 1) {// 1-登陆、0-未登录
+        if (!Config.useDb) {
+            Platform p = ShareSDK.getPlatform(mContext, DBUtils.categoryManager.get(type));
+            String userid = p.getDb().getUserId();
+//            Log.i(TAG, "userid is: " + userid);
+            if (userid != null && userid.length() != 0) {
                 categoryInfo.setLogin(true);
-            } else {
-                categoryInfo.setLogin(false);
+                categoryInfo.setUserName(p.getDb().getUserName());
             }
-            return categoryInfo;
+        } else {
+            Cursor c = null;
+            c = mContentResolver.query(
+                    Uri.parse("content://" + DBUtils.AUTHORITY + "/"
+                            + DBUtils.categoryManager.get(type)), null, null, null, null);
+            while (c.moveToLast()) {
+                String username = c.getString(c.getColumnIndex("username"));
+                String pwd = c.getString(c.getColumnIndex("pwd"));
+                int islogin = c.getInt(c.getColumnIndex("islogin"));
+                Log.d(TAG, "username === " + username);
+                Log.d(TAG, "pwd === " + pwd);
+                Log.d(TAG, "islogin === " + islogin);
+                Log.d(TAG, "type === " + type);
+                categoryInfo.setUserName(username);
+                categoryInfo.setPwd(pwd);
+                categoryInfo.setType(type);
+                if (islogin == 1) {// 1-登陆、0-未登录
+                    categoryInfo.setLogin(true);
+                } else {
+                    categoryInfo.setLogin(false);
+                }
+                return categoryInfo;
+            }
         }
 
         return categoryInfo;

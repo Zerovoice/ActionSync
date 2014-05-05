@@ -33,8 +33,6 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Transformation;
 
-import com.zeroapp.action.R;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -619,7 +617,7 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
      * @param animate the animate
      */
 	void layout(int delta, boolean animate){
-		        
+        Log.i(TAG, "layout start");
         if (mDataChanged) {
             handleDataChanged();
         }
@@ -629,7 +627,6 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
             resetList();
             return;
         }
-        
         // Update to the new selected position.
         if (mNextSelectedPosition >= 0) {
             setSelectedPositionInt(mNextSelectedPosition);
@@ -643,6 +640,7 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
         
         
         int count = getAdapter().getCount();
+//        Log.i(TAG, "layout-->count:" + count);
         float angleUnit = 360.0f / count;
 
         float angleOffset = mSelectedPosition * angleUnit;
@@ -662,11 +660,11 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
         
         checkSelectionChanged();
         
-        ////////mDataChanged = false;
+//        mDataChanged = false;
         mNeedSync = false;
         
         updateSelectedItemMetadata();
-        
+        Log.i(TAG, "layout end");
 	} 
     
 	/**
@@ -1277,28 +1275,25 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
         CarouselItemView child;
   
         if (!mDataChanged) {
-            child = (CarouselItemView)mRecycler.get(position);
+            child = (CarouselItemView) mRecycler.get(position);
             if (child != null) {
 
                 // Position the view
                 setUpChild(child, child.getIndex(), angleOffset);
-            }
-            else
-            {
+            } else {
                 // Nothing found in the recycler -- ask the adapter for a view
-                child = (CarouselItemView)mAdapter.getView(position, null, this);
+                child = (CarouselItemView) mAdapter.getView(position, null, this);
 
                 // Position the view
-                setUpChild(child, child.getIndex(), angleOffset);            	
+                setUpChild(child, child.getIndex(), angleOffset);
             }
-            return;
+        } else {
+            // Nothing found in the recycler -- ask the adapter for a view
+            child = (CarouselItemView) mAdapter.getView(position, null, this);
+
+            // Position the view
+            setUpChild(child, child.getIndex(), angleOffset);
         }
-
-        // Nothing found in the recycler -- ask the adapter for a view
-        child = (CarouselItemView)mAdapter.getView(position, null, this);
-
-        // Position the view
-        setUpChild(child, child.getIndex(), angleOffset);
 
     }      
     
@@ -1319,7 +1314,6 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
             // We haven't been callbacking during the fling, so do it now
             super.selectionChanged();
         }
-        getSelectedView().setBackgroundResource(R.drawable.focus_select_item);
     	checkSelectionChanged();
         invalidate();
 
@@ -1476,7 +1470,7 @@ public class CarouselView extends CarouselSpinner implements GestureDetector.OnG
     private void setUpChild(CarouselItemView child, int index, float angleOffset) {
                 
     	// Ignore any layout parameters for child, use wrap content
-        addViewInLayout(child, -1 /*index*/, generateDefaultLayoutParams());
+        addViewInLayout(child, -1/* index */, generateDefaultLayoutParams());
 
         child.setSelected(index == mSelectedPosition);
         

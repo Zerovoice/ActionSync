@@ -13,17 +13,24 @@
 
 package com.zeroapp.action.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 
 import com.zeroapp.action.R;
 import com.zeroapp.action.activity.MainActivity;
 import com.zeroapp.action.models.CategoryInfo;
+
+import java.util.HashMap;
 
 /**
  * <p>Title: TODO.</p>
@@ -33,52 +40,67 @@ import com.zeroapp.action.models.CategoryInfo;
  * @version $Id$
  */
 
-public class UserFragment extends Fragment {
+public class UserFragment extends Fragment implements PlatformActionListener {
 
     private static final String TAG = "UserFragment";
 
     private MainActivity mainActivity;
-
     private CategoryInfo categoryInfo;
+
+    private View mainView;
+    private ImageView notLoginImg;
+    private TextView tv;
+    @Override
+    public void onAttach(Activity activity) {
+        Log.i(TAG, "onAttach");
+        super.onAttach(activity);
+        mainActivity = (MainActivity) getActivity();
+        categoryInfo = mainActivity.getFocusCategory();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
-        mainActivity = (MainActivity) getActivity();
-        categoryInfo = mainActivity.getFocusCategory();
-        View v = inflater.inflate(R.layout.fragment_user, null);
-        TextView tv = (TextView) v.findViewById(R.id.user_test);
+        mainView = inflater.inflate(R.layout.fragment_user, null);
+        tv = (TextView) mainView.findViewById(R.id.user_test);
         String text = "this is test:" + categoryInfo.getMsg();
         tv.setText(text);
-        
-        
-//        if (c.isLogin()) {
-//            Platform platform = ShareSDK
-//                    .getPlatform(this, DBUtils.categoryManager.get(c.getType()));
-//            Log.i(TAG, "platform on " + platform.getName());
-//            platform.setPlatformActionListener(new PlatformActionListener() {
-//
-//                @Override
-//                public void onError(Platform arg0, int arg1, Throwable arg2) {
-//                    Log.i(TAG, "updateData--->onError");
-//
-//                }
-//
-//                @Override
-//                public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
-//                    Log.i(TAG, "updateData--->onComplete");
-//
-//                }
-//
-//                @Override
-//                public void onCancel(Platform arg0, int arg1) {
-//                    Log.i(TAG, "updateData--->onCancel");
-//
-//                }
-//            });
-//            platform.showUser(null);
-//        }
-        return v;
+        notLoginImg = (ImageView) mainView.findViewById(R.id.not_login_img);
+
+        return mainView;
     }
 
+    @Override
+    public void onStart() {
+        Log.i(TAG, "onStart");
+        super.onStart();
+        if (categoryInfo.isLogin()) {
+//            notLoginImg.setVisibility(View.GONE);
+//            tv.setVisibility(View.VISIBLE);
+//            Platform platform = ShareSDK.getPlatform(mainActivity,
+//                    DBUtils.categoryManager.get(categoryInfo.getType()));
+//            Log.i(TAG, "platform on " + platform.getName());
+//            platform.setPlatformActionListener(this);
+//            platform.showUser(null);
+        }
+    }
+
+    @Override
+    public void onError(Platform arg0, int arg1, Throwable arg2) {
+        Log.i(TAG, "updateData--->onError");
+
+    }
+
+    @Override
+    public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+        Log.i(TAG, "updateData--->onComplete");
+        tv.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onCancel(Platform arg0, int arg1) {
+        Log.i(TAG, "updateData--->onCancel");
+
+    }
 }
