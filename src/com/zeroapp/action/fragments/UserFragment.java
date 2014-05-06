@@ -25,9 +25,11 @@ import android.widget.TextView;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
 
 import com.zeroapp.action.R;
 import com.zeroapp.action.activity.MainActivity;
+import com.zeroapp.action.database.DBUtils;
 import com.zeroapp.action.models.CategoryInfo;
 
 import java.util.HashMap;
@@ -75,13 +77,13 @@ public class UserFragment extends Fragment implements PlatformActionListener {
         Log.i(TAG, "onStart");
         super.onStart();
         if (categoryInfo.isLogin()) {
-//            notLoginImg.setVisibility(View.GONE);
-//            tv.setVisibility(View.VISIBLE);
-//            Platform platform = ShareSDK.getPlatform(mainActivity,
-//                    DBUtils.categoryManager.get(categoryInfo.getType()));
-//            Log.i(TAG, "platform on " + platform.getName());
-//            platform.setPlatformActionListener(this);
-//            platform.showUser(null);
+            notLoginImg.setVisibility(View.GONE);
+            tv.setVisibility(View.VISIBLE);
+            Platform platform = ShareSDK.getPlatform(mainActivity,
+                    DBUtils.categoryManager.get(categoryInfo.getType()));
+            Log.i(TAG, "platform on " + platform.getName());
+            platform.setPlatformActionListener(this);
+            platform.showUser(null);
         }
     }
 

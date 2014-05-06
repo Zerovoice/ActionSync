@@ -22,7 +22,7 @@ import com.zeroapp.action.R;
 import com.zeroapp.action.database.CategoryDataControler;
 import com.zeroapp.action.fragments.DeleteFragment;
 import com.zeroapp.action.fragments.LoginFragment;
-import com.zeroapp.action.fragments.UserFragment;
+import com.zeroapp.action.fragments.ShareFragment;
 import com.zeroapp.action.models.CategoryInfo;
 import com.zeroapp.action.models.ZeroAppApplication;
 import com.zeroapp.action.view.carousel.CarouselAdapter;
@@ -226,7 +226,8 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         Log.i(TAG, "switching--->" + c.getMsg());
         setFocusCategory(c);
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.fl_container, new UserFragment()).commit();
+//        t.replace(R.id.fl_container, new UserFragment()).commit();
+        t.replace(R.id.fl_container, new ShareFragment()).commit();
 
     }
 
