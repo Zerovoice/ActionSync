@@ -21,8 +21,8 @@ import cn.sharesdk.framework.ShareSDK;
 import com.zeroapp.action.R;
 import com.zeroapp.action.database.CategoryDataControler;
 import com.zeroapp.action.fragments.DeleteFragment;
+import com.zeroapp.action.fragments.GuideFragment;
 import com.zeroapp.action.fragments.LoginFragment;
-import com.zeroapp.action.fragments.ShareFragment;
 import com.zeroapp.action.models.CategoryInfo;
 import com.zeroapp.action.models.ZeroAppApplication;
 import com.zeroapp.action.view.carousel.CarouselAdapter;
@@ -32,8 +32,6 @@ import com.zeroapp.action.view.carousel.CarouselAdapter.OnItemSelectedListener;
 import com.zeroapp.action.view.carousel.CarouselAdapter.OnScrollListener;
 import com.zeroapp.action.view.carousel.CarouselView;
 import com.zeroapp.action.view.carousel.CarouselViewAdapter;
-
-import java.util.List;
 
 /**
  * <p>
@@ -52,7 +50,6 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
     private static final String TAG = "MainActivity";
     private CarouselView carousel;
     private TextView actionBarTitle;
-    private List<CategoryInfo> data;
     private CarouselViewAdapter adapter;
     public static FrameLayout topFrameLayout;
     private LinearLayout mainLinearLayout;
@@ -69,7 +66,6 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        data = ZeroAppApplication.mDatas;
 
         initView();
         initCarousel();
@@ -84,6 +80,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         carousel = (CarouselView) mainLinearLayout.findViewById(R.id.carousel);
         actionBarTitle = (TextView) mainLinearLayout.findViewById(R.id.action_bar_title_tv);
         topFrameLayout = (FrameLayout) findViewById(R.id.topfl_container);
+
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+//      t.replace(R.id.fl_container, new UserFragment()).commit();
+        t.replace(R.id.fl_container, new GuideFragment()).commit();
 	}
 
     /**
@@ -97,7 +97,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     private void initCarousel() {
         // 不支持的动态添加adapter.notifyDataSetChanged()增强滑动的流畅
-        adapter = new CarouselViewAdapter(this, data, false);
+        adapter = new CarouselViewAdapter(this, ZeroAppApplication.mDatas, false);
         carousel.setOnItemClickListener(this);
         carousel.setOnItemLongClickListener(this);
         carousel.setOnItemSelectedListener(this);
@@ -107,10 +107,9 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 
     private void updateCarouselView() {
         ZeroAppApplication.getInstance().updateViewDatas();
-        data = ZeroAppApplication.mDatas;
 //        adapter.setImages(data);
         // 以下处理可以解决UI不刷新，但是基本上就是重新加载carousel。
-        adapter = new CarouselViewAdapter(this, data, false);
+        adapter = new CarouselViewAdapter(this, ZeroAppApplication.mDatas, false);
         carousel.setAdapter(adapter);
     }
 	
@@ -136,7 +135,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     @Override
     public void onItemSelected(CarouselAdapter<?> parent, View view, int position, long id) {
-        CategoryInfo c = data.get(position);
+        CategoryInfo c = ZeroAppApplication.mDatas.get(position);
         actionBarTitle.setText(c.getMsg());
 
         switching(c);
@@ -172,7 +171,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     @Override
     public void onItemClick(CarouselAdapter<?> parent, View view, int position, long id) {
-        CategoryInfo c = data.get(position);
+        CategoryInfo c = ZeroAppApplication.mDatas.get(position);
         click(c);
     }
 
@@ -192,7 +191,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     @Override
     public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
-        CategoryInfo c = data.get(position);
+        CategoryInfo c = ZeroAppApplication.mDatas.get(position);
         delete(c);
         return false;
     }
@@ -225,9 +224,9 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
     private void switching(CategoryInfo c) {
         Log.i(TAG, "switching--->" + c.getMsg());
         setFocusCategory(c);
-        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+//        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
 //        t.replace(R.id.fl_container, new UserFragment()).commit();
-        t.replace(R.id.fl_container, new ShareFragment()).commit();
+//        t.replace(R.id.fl_container, new ShareFragment()).commit();
 
     }
 

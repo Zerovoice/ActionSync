@@ -8,6 +8,15 @@
         android:layout_height="match_parent"
         android:src="@drawable/not_login_image"
         />
+    <Button
+        android:id="@+id/btn_start_share" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="20dp"
+        android:text="一触即发"
+        android:background="@drawable/button_bg_focused"
+        />
     <LinearLayout
         android:id="@+id/login_layout" 
         android:layout_width="match_parent"
