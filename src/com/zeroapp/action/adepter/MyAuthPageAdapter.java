@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2011 Hisense Electric Co., Ltd. 
+ * Copyright (C)  . 
  * All Rights Reserved.
  *
  * ALL RIGHTS ARE RESERVED BY HISENSE ELECTRIC CO., LTD. ACCESS TO THIS
@@ -23,7 +23,7 @@ import cn.sharesdk.framework.authorize.AuthorizeAdapter;
  * <p>Title: TODO.</p>
  * <p>Description: TODO.</p>
  *
- * @author Bobby Zou(zouxiaobo@hisense.com) 2014-4-30.
+ * @author Bobby Zou(zeroapp@126.com) 2014-4-30.
  * @version $Id$
  */
 
@@ -32,6 +32,9 @@ public class MyAuthPageAdapter extends AuthorizeAdapter {
     public void onCreate() {
         // 隐藏标题栏右部的ShareSDK Logo
         hideShareSDKLogo();
+
+//        getActivity().setTheme(android.R.style.Theme_Dialog);
+//        getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         // 设置标题栏文字
 //        TitleLayout llTitle = getTitleLayout();
@@ -51,5 +54,33 @@ public class MyAuthPageAdapter extends AuthorizeAdapter {
             rv.setAnimation(ta);
         }
     }
+
+//    public boolean onFinish() {
+//        // 下面的代码演示如何设置自定义的授权页面退出动画
+//        final View rv = (View) getBodyView().getParent();
+//        rv.clearAnimation();
+//
+//        TranslateAnimation ta = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0,
+//                Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
+//                Animation.RELATIVE_TO_SELF, -1);
+//        ta.setFillAfter(true);
+//        ta.setDuration(500);
+//        ta.setAnimationListener(new AnimationListener() {
+//
+//            public void onAnimationStart(Animation animation) {
+//
+//            }
+//
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//
+//            public void onAnimationEnd(Animation animation) {
+////                getActivity().finish();
+//            }
+//        });
+//        rv.setAnimation(ta);
+//        return super.onFinish();
+//    }
 
 }

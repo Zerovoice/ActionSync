@@ -1,4 +1,3 @@
-
 package com.zeroapp.action.activity;
 
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 
 import com.zeroapp.action.R;
-import com.zeroapp.action.database.CategoryDataControler;
 import com.zeroapp.action.fragments.DeleteFragment;
 import com.zeroapp.action.fragments.GuideFragment;
 import com.zeroapp.action.fragments.LoginFragment;
@@ -41,7 +39,7 @@ import com.zeroapp.action.view.carousel.CarouselViewAdapter;
  * Description: MainActivity.
  * </p>
  * 
- * @author Bobby Zou(zouxiaobo@hisense.com) 2014-4-29.
+ * @author Bobby Zou(zeroapp@126.com) 2014-4-29.
  * @version $Id$
  */
 public class MainActivity extends FragmentActivity implements OnItemClickListener,
@@ -51,16 +49,16 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
     private CarouselView carousel;
     private TextView actionBarTitle;
     private CarouselViewAdapter adapter;
-    public static FrameLayout topFrameLayout;
+    private FrameLayout topLayout;
     private LinearLayout mainLinearLayout;
     /**
-     * if TopFrameLayout is not shown, scroll won't make an animotion.
+     * if TopFrameLayout is not shown, scroll won't make an animation.
      */
     private boolean isTopFrameLayoutShowing = false;
     /**
-     * the Category which is selected or clicked or longclicked.
+     * the Category which is selected or clicked or long clicked.
      */
-    private CategoryInfo focusCategory;
+    private GuideFragment guideFragment;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,17 +71,16 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	}
 
     /**
-     * 初始化数据
+     * initialize UI
      */
     private void initView() {
         mainLinearLayout = (LinearLayout) findViewById(R.id.main_liner_layout);
         carousel = (CarouselView) mainLinearLayout.findViewById(R.id.carousel);
         actionBarTitle = (TextView) mainLinearLayout.findViewById(R.id.action_bar_title_tv);
-        topFrameLayout = (FrameLayout) findViewById(R.id.topfl_container);
-
+        topLayout = (FrameLayout) findViewById(R.id.topfl_container);
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-//      t.replace(R.id.fl_container, new UserFragment()).commit();
-        t.replace(R.id.fl_container, new GuideFragment()).commit();
+        guideFragment= new GuideFragment();
+        t.replace(R.id.fl_container, guideFragment).commit();
 	}
 
     /**
@@ -105,7 +102,18 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         carousel.setAdapter(adapter);
     }
 
-    private void updateCarouselView() {
+    /**
+     * <p>
+     * Title: To update the carousel view.
+     * </p>
+     * <p>
+     * Description: When the status of a categrory has been changed(such as
+     * change it from login to logout),invoke this function to up date the
+     * Carousel view.
+     * </p>
+     * 
+     */
+    public void updateCarouselView() {
         ZeroAppApplication.getInstance().updateViewDatas();
 //        adapter.setImages(data);
         // 以下处理可以解决UI不刷新，但是基本上就是重新加载carousel。
@@ -120,19 +128,6 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		return true;
 	}
 
-    /**
-     * <p>
-     * Title: onItemSelected.
-     * </p>
-     * <p>
-     * Description: onItemSelected.
-     * </p>
-     * 
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
     @Override
     public void onItemSelected(CarouselAdapter<?> parent, View view, int position, long id) {
         CategoryInfo c = ZeroAppApplication.mDatas.get(position);
@@ -141,54 +136,17 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         switching(c);
     }
 
-    /**
-     * <p>
-     * Title: onNothingSelected.
-     * </p>
-     * <p>
-     * Description: onNothingSelected.
-     * </p>
-     * 
-     * @param parent
-     */
     @Override
     public void onNothingSelected(CarouselAdapter<?> parent) {
 
     }
 
-    /**
-     * <p>
-     * Title: onItemClick.
-     * </p>
-     * <p>
-     * Description: onItemClick.
-     * </p>
-     * 
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
     @Override
     public void onItemClick(CarouselAdapter<?> parent, View view, int position, long id) {
         CategoryInfo c = ZeroAppApplication.mDatas.get(position);
         click(c);
     }
 
-    /**
-     * <p>
-     * Title: onItemLongClick.
-     * </p>
-     * <p>
-     * Description: onItemLongClick.
-     * </p>
-     * 
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     * @return
-     */
     @Override
     public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
         CategoryInfo c = ZeroAppApplication.mDatas.get(position);
@@ -196,113 +154,50 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         return false;
     }
 
-    /**
-     * <p>
-     * Title: onScroll.
-     * </p>
-     * <p>
-     * Description: onScroll.
-     * </p>
-     * 
-     */
     @Override
     public void onScroll() {
-        hideFragment();
+        hideDeleteFragment();
 
     }
 
-    /**
-     * <p>
-     * Title: update.
-     * </p>
-     * <p>
-     * Description: update.
-     * </p>
-     * 
-     * @param c
-     */
     private void switching(CategoryInfo c) {
         Log.i(TAG, "switching--->" + c.getMsg());
-        setFocusCategory(c);
-//        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-//        t.replace(R.id.fl_container, new UserFragment()).commit();
-//        t.replace(R.id.fl_container, new ShareFragment()).commit();
-
     }
 
-    /**
-     * <p>
-     * Title: check.
-     * </p>
-     * <p>
-     * Description: check.
-     * </p>
-     * 
-     * @param c
-     */
     private void click(CategoryInfo c) {
         Log.i(TAG, "check--->" + c.getMsg());
-        setFocusCategory(c);
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.topfl_container, new LoginFragment()).commit();
+        t.replace(R.id.topfl_container, new LoginFragment(c)).commit();
     }
 
-    /**
-     * <p>
-     * Title: delete.
-     * </p>
-     * <p>
-     * Description: delete.
-     * </p>
-     * 
-     * @param c
-     */
     private void delete(CategoryInfo c) {
         Log.i(TAG, "delete--->" + c.getMsg());
-        setFocusCategory(c);
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.topfl_container, new DeleteFragment()).commit();
-        int h = topFrameLayout.getHeight();
+        t.replace(R.id.topfl_container, new DeleteFragment(c)).commit();
+        showDeleteFragment();
+    }
+
+    public void showDeleteFragment() {
+        int h = topLayout.getHeight();
         Animation inAnimotion = new TranslateAnimation(0, 0, -h, 0);
         inAnimotion.setFillAfter(true);
         inAnimotion.setDuration(1000);
-        topFrameLayout.startAnimation(inAnimotion);
+        topLayout.startAnimation(inAnimotion);
         isTopFrameLayoutShowing = true;
+
     }
 
-    /**
-     * <p>
-     * Title: hideFragment.
-     * </p>
-     * <p>
-     * Description: hideFragment.
-     * </p>
-     * 
-     */
-    private void hideFragment() {
+    public void hideDeleteFragment() {
         if (isTopFrameLayoutShowing) {
-            int h = topFrameLayout.getHeight();
+            int h = topLayout.getHeight();
             Animation inAnimotion = new TranslateAnimation(0, 0, 0, -h);
             inAnimotion.setFillAfter(true);
             inAnimotion.setDuration(1000);
-            topFrameLayout.setAnimation(inAnimotion);
+            topLayout.setAnimation(inAnimotion);
             isTopFrameLayoutShowing = false;
         }
     }
 
-    public CategoryInfo getFocusCategory() {
-        return focusCategory;
-    }
-
-    public void setFocusCategory(CategoryInfo focusCategory) {
-        this.focusCategory = focusCategory;
-    }
-
-    /**
-     * 处理操作结果
-     * <p>
-     * 如果获取到用户的名称，则显示名称；否则如果已经授权，则显示 平台名称
-     */
     public boolean handleMessage(Message msg) {
         Platform plat = (Platform) msg.obj;
         String text = MainActivity.actionToString(msg.arg2);
@@ -311,13 +206,15 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
                 // 成功
                 if (msg.arg2 == 1) {
                     Log.i(TAG, "onComplete " + "ACTION_AUTHORIZING");
-                    CategoryDataControler categoryDataControler = new CategoryDataControler(this);
-                    categoryDataControler.insert(getFocusCategory());
-                    updateCarouselView();
+//                    CategoryDataControler categoryDataControler = new CategoryDataControler(this);
+//                    categoryDataControler.insert(getFocusCategory());
                 } else if (msg.arg2 == 8) {
                     Log.i(TAG, "onComplete " + "ACTION_USER_INFOR");
+                } else if (msg.arg2 == 8) {
+
                 }
 
+                updateCarouselView();
                 return false;
             case 2:
                 // 失败

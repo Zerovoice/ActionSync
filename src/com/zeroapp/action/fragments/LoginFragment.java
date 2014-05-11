@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2011 Hisense Electric Co., Ltd. 
+ * Copyright (C)  . 
  * All Rights Reserved.
  *
  * ALL RIGHTS ARE RESERVED BY HISENSE ELECTRIC CO., LTD. ACCESS TO THIS
@@ -36,7 +36,7 @@ import java.util.HashMap;
  * <p>Title: TODO.</p>
  * <p>Description: TODO.</p>
  *
- * @author Bobby Zou(zouxiaobo@hisense.com) 2014-4-29.
+ * @author Bobby Zou(zeroapp@126.com) 2014-4-29.
  * @version $Id$
  */
 
@@ -46,11 +46,25 @@ public class LoginFragment extends Fragment implements PlatformActionListener {
 
     private MainActivity mainActivity;
     private CategoryInfo categoryInfo;
+
+    /**
+     * <p>
+     * Title: TODO.
+     * </p>
+     * <p>
+     * Description: TODO.
+     * </p>
+     * 
+     * @param c
+     */
+    public LoginFragment(CategoryInfo c) {
+        this.categoryInfo = c;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
         mainActivity = (MainActivity) getActivity();
-        categoryInfo = mainActivity.getFocusCategory();
         View v = null;
 //      v = inflater.inflate(R.layout.fragment_login, null);
         Log.i(TAG, "onCreateView--->MainActivity focus on "+categoryInfo.getMsg());

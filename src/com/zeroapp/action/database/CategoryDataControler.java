@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2011 Hisense Electric Co., Ltd. 
+ * Copyright (C)  . 
  * All Rights Reserved.
  *
  * ALL RIGHTS ARE RESERVED BY HISENSE ELECTRIC CO., LTD. ACCESS TO THIS
@@ -30,7 +30,7 @@ import com.zeroapp.action.models.CategoryInfo;
  * <p>Title: TODO.</p>
  * <p>Description: TODO.</p>
  *
- * @author Bobby Zou(zouxiaobo@hisense.com) 2014-4-23.
+ * @author Bobby Zou(zeroapp@126.com) 2014-4-23.
  * @version $Id$
  */
 

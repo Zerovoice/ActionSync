@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2011 Hisense Electric Co., Ltd. 
+ * Copyright (C)  . 
  * All Rights Reserved.
  *
  * ALL RIGHTS ARE RESERVED BY HISENSE ELECTRIC CO., LTD. ACCESS TO THIS
@@ -25,7 +25,7 @@ import android.util.Log;
  * <p>Title: TODO.</p>
  * <p>Description: TODO.</p>
  *
- * @author Bobby Zou(zouxiaobo@hisense.com) 2014-4-22.
+ * @author Bobby Zou(zeroapp@126.com) 2014-4-22.
  * @version $Id$
  */
 

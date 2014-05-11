@@ -67,7 +67,7 @@ import java.util.Map.Entry;
 
 /**
  * 
- * @author Bobby Zou(zouxiaobo@hisense.com) 2014-4-29.
+ * @author Bobby Zou(zeroapp@126.com) 2014-4-29.
  * @version $Id$
  */
 
@@ -77,7 +77,6 @@ public class ShareFragment extends Fragment implements PlatformActionListener, O
     private static final String TAG = "ShareFragment";
 
     private MainActivity mainActivity;
-    private CategoryInfo categoryInfo;
     private View mainView;
     private EditText shareContent;
     private ImageView photo2Share;
@@ -123,7 +122,6 @@ public class ShareFragment extends Fragment implements PlatformActionListener, O
         Log.i(TAG, "onAttach");
         super.onAttach(activity);
         mainActivity = (MainActivity) getActivity();
-        categoryInfo = mainActivity.getFocusCategory();
         reqData = new HashMap<String, Object>();
     }
 

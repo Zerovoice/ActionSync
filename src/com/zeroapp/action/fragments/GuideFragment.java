@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2011 Hisense Electric Co., Ltd. 
+ * Copyright (C)  . 
  * All Rights Reserved.
  *
  * ALL RIGHTS ARE RESERVED BY HISENSE ELECTRIC CO., LTD. ACCESS TO THIS
@@ -31,7 +31,6 @@ import cn.sharesdk.framework.PlatformActionListener;
 
 import com.zeroapp.action.R;
 import com.zeroapp.action.activity.MainActivity;
-import com.zeroapp.action.models.CategoryInfo;
 
 import java.util.HashMap;
 
@@ -39,7 +38,7 @@ import java.util.HashMap;
  * <p>Title: TODO.</p>
  * <p>Description: TODO.</p>
  *
- * @author Bobby Zou(zouxiaobo@hisense.com) 2014-4-29.
+ * @author Bobby Zou(zeroapp@126.com) 2014-4-29.
  * @version $Id$
  */
 
@@ -48,7 +47,6 @@ public class GuideFragment extends Fragment implements PlatformActionListener, O
     private static final String TAG = "UserFragment";
 
     private MainActivity mainActivity;
-    private CategoryInfo categoryInfo;
 
     private View mainView;
     private ImageView notLoginImg;
@@ -60,7 +58,6 @@ public class GuideFragment extends Fragment implements PlatformActionListener, O
         Log.i(TAG, "onAttach");
         super.onAttach(activity);
         mainActivity = (MainActivity) getActivity();
-        categoryInfo = mainActivity.getFocusCategory();
     }
 
     @Override
@@ -110,16 +107,6 @@ public class GuideFragment extends Fragment implements PlatformActionListener, O
 
     }
 
-    /**
-     * <p>
-     * Title: TODO.
-     * </p>
-     * <p>
-     * Description: TODO.
-     * </p>
-     * 
-     * @param v
-     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
