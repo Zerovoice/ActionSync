@@ -38,9 +38,13 @@ import com.zeroapp.action.models.CategoryInfo;
 import java.util.HashMap;
 
 /**
- * <p>Title: TODO.</p>
- * <p>Description: TODO.</p>
- *
+ * <p>
+ * Title: DeleteFragment.
+ * </p>
+ * <p>
+ * Description: DeleteFragment.
+ * </p>
+ * 
  * @author Bobby Zou(zeroapp@126.com) 2014-4-29.
  * @version $Id$
  */
@@ -89,7 +93,7 @@ public class DeleteFragment extends Fragment implements OnClickListener, Platfor
             case R.id.btn_logout:
                 Log.i(TAG, "onClick:" + "btn_logout");
                 Platform p = ShareSDK.getPlatform(mainActivity,
-                        DBUtils.categoryManager.get(categoryInfo.getType()));
+                        DBUtils.getCategoryManager().get(categoryInfo.getType()));
                 p.setPlatformActionListener(this);
                 p.removeAccount();
                 CategoryDataControler cc = new CategoryDataControler(mainActivity);

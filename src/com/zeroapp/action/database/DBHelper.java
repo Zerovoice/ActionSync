@@ -18,11 +18,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Iterator;
 
 /**
- * <p>Title: TODO.</p>
- * <p>Description: TODO.</p>
- *
+ * <p>
+ * Title: DBHelper.
+ * </p>
+ * <p>
+ * Description: DBHelper.
+ * </p>
+ * 
  * @author Bobby Zou(zeroapp@126.com) 2014-4-22.
  * @version $Id$
  */
@@ -30,51 +35,6 @@ import android.util.Log;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DBHelper";
-
-    private static final String CREATE_SINA_WEIBO_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_SINA_WEIBO + "(" + DBUtils._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + DBUtils.KEY_USERNAME + " TEXT," + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN
-            + " INTERGER)";
-    private static final String CREATE_WECHAT_FRIEND_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_WECHAT_FRIEND + "(" + DBUtils._ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DBUtils.KEY_USERNAME + " TEXT,"
-            + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN + " INTERGER)";
-    private static final String CREATE_WECHAT_MOMENT_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_WECHAT_MOMENT + "(" + DBUtils._ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DBUtils.KEY_USERNAME + " TEXT,"
-            + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN + " INTERGER)";
-    private static final String CREATE_QZONE_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_QZONE + "(" + DBUtils._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + DBUtils.KEY_USERNAME + " TEXT," + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN
-            + " INTERGER)";
-    private static final String CREATE_TENCENT_WEIBO_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_TENCENT_WEIBO + "(" + DBUtils._ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DBUtils.KEY_USERNAME + " TEXT,"
-            + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN + " INTERGER)";
-    private static final String CREATE_RENREN_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_RENREN + "(" + DBUtils._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + DBUtils.KEY_USERNAME + " TEXT," + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN
-            + " INTERGER)";
-    private static final String CREATE_DOUBAN_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_DOUBAN + "(" + DBUtils._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + DBUtils.KEY_USERNAME + " TEXT," + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN
-            + " INTERGER)";
-    private static final String CREATE_EVERNOTE_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_EVERNOTE + "(" + DBUtils._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + DBUtils.KEY_USERNAME + " TEXT," + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN
-            + " INTERGER)";
-    private static final String CREATE_TWITTER_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_TWITTER + "(" + DBUtils._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + DBUtils.KEY_USERNAME + " TEXT," + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN
-            + " INTERGER)";
-    private static final String CREATE_FACEBOOK_DB = "CREATE TABLE IF NOT EXISTS "
-            + DBUtils.TABLE_FACEBOOK + "(" + DBUtils._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + DBUtils.KEY_USERNAME + " TEXT," + DBUtils.KEY_PWD + " TEXT," + DBUtils.IS_LOGIN
-            + " INTERGER)";
-    public static String[] createTables = new String[] { CREATE_SINA_WEIBO_DB,
-            CREATE_WECHAT_FRIEND_DB, CREATE_WECHAT_MOMENT_DB, CREATE_QZONE_DB,
-            CREATE_TENCENT_WEIBO_DB, CREATE_RENREN_DB, CREATE_DOUBAN_DB, CREATE_EVERNOTE_DB,
-            CREATE_TWITTER_DB, CREATE_FACEBOOK_DB };
 
     public DBHelper(Context context) {
 
@@ -85,10 +45,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: onCreate.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: onCreate.
      * </p>
      * 
      * @param db
@@ -96,18 +56,24 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.i(TAG, "DBHelper-->onCreate");
-        for (String s : createTables) {
-            db.execSQL(s);
+        Iterator<Integer> it = DBUtils.getCategoryManager().keySet().iterator();
+        while (it.hasNext()) {
+            int i = it.next();
+            String CREATE_DB = "CREATE TABLE IF NOT EXISTS " + DBUtils.getCategoryManager().get(i)
+                    + "(" + DBUtils._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + DBUtils.KEY_USERNAME + " TEXT," + DBUtils.KEY_PWD + " TEXT,"
+                    + DBUtils.IS_LOGIN + " INTERGER)";
+//            Log.i(TAG, "execSQL------" + i + "------:" + CREATE_DB);
+            db.execSQL(CREATE_DB);
         }
-
     }
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: onUpgrade.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: onUpgrade.
      * </p>
      * 
      * @param db
@@ -116,7 +82,6 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
         Log.i(TAG, "DBHelper-->onUpgrade");
 
     }

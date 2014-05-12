@@ -33,9 +33,13 @@ import com.zeroapp.action.models.CategoryInfo;
 import java.util.HashMap;
 
 /**
- * <p>Title: TODO.</p>
- * <p>Description: TODO.</p>
- *
+ * <p>
+ * Title: LoginFragment.
+ * </p>
+ * <p>
+ * Description: LoginFragment.
+ * </p>
+ * 
  * @author Bobby Zou(zeroapp@126.com) 2014-4-29.
  * @version $Id$
  */
@@ -49,10 +53,10 @@ public class LoginFragment extends Fragment implements PlatformActionListener {
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: LoginFragment.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: LoginFragment.
      * </p>
      * 
      * @param c
@@ -67,9 +71,9 @@ public class LoginFragment extends Fragment implements PlatformActionListener {
         mainActivity = (MainActivity) getActivity();
         View v = null;
 //      v = inflater.inflate(R.layout.fragment_login, null);
-        Log.i(TAG, "onCreateView--->MainActivity focus on "+categoryInfo.getMsg());
+        Log.i(TAG, "onCreateView--->MainActivity focus on " + categoryInfo.getMsg());
         Platform platform = ShareSDK.getPlatform(mainActivity,
-                DBUtils.categoryManager.get(categoryInfo.getType()));
+                DBUtils.getCategoryManager().get(categoryInfo.getType()));
         Log.i(TAG, "platform on " + platform.getName());
         platform.setPlatformActionListener(this);
 

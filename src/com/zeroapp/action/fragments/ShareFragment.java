@@ -39,15 +39,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import cn.sharesdk.framework.FakeActivity;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.framework.TitleLayout;
-import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.ShareCore;
 
 import com.zeroapp.action.R;
@@ -56,6 +51,7 @@ import com.zeroapp.action.database.DBUtils;
 import com.zeroapp.action.models.CategoryInfo;
 import com.zeroapp.action.models.ShareDataBuilder;
 import com.zeroapp.action.models.ZeroAppApplication;
+import com.zeroapp.action.util.GPS;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -93,29 +89,6 @@ public class ShareFragment extends Fragment implements PlatformActionListener, O
     private static final int MAX_TEXT_COUNT = 140;
     private static final int MSG_PLATFORM_LIST_GOT = 1;
     private static final int MSG_AFTER_IMAGE_DOWNLOAD = 2;
-    private OnekeyShare parent;
-    private LinearLayout llPage;
-    private TitleLayout llTitle;
-    // 文本编辑框
-    private EditText etContent;
-    // 字数计算器
-    private TextView tvCounter;
-    // 别针图片
-    private ImageView ivPin;
-    // 输入区域的图片
-    private ImageView ivImage;
-    private Bitmap image;
-    private boolean shareImage;
-    private LinearLayout llPlat;
-    private LinearLayout llAt;
-    // 平台列表
-    private Platform[] platformList;
-    private View[] views;
-    // 设置显示模式为Dialog模式
-    private boolean dialogMode;
-
-    private FakeActivity fakeActivity;
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -172,71 +145,23 @@ public class ShareFragment extends Fragment implements PlatformActionListener, O
 
     }
 
-    /**
-     * <p>
-     * Title: TODO.
-     * </p>
-     * <p>
-     * Description: TODO.
-     * </p>
-     * 
-     * @param arg0
-     * @return
-     */
     @Override
     public boolean handleMessage(Message arg0) {
         // TODO Auto-generated method stub
         return false;
     }
-
-    /**
-     * <p>
-     * Title: TODO.
-     * </p>
-     * <p>
-     * Description: TODO.
-     * </p>
-     * 
-     * @param arg0
-     */
     @Override
     public void afterTextChanged(Editable arg0) {
         // TODO Auto-generated method stub
 
     }
 
-    /**
-     * <p>
-     * Title: TODO.
-     * </p>
-     * <p>
-     * Description: TODO.
-     * </p>
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     */
     @Override
     public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
         // TODO Auto-generated method stub
 
     }
 
-    /**
-     * <p>
-     * Title: TODO.
-     * </p>
-     * <p>
-     * Description: TODO.
-     * </p>
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     */
     @Override
     public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
         // TODO Auto-generated method stub
@@ -318,6 +243,11 @@ public class ShareFragment extends Fragment implements PlatformActionListener, O
         new Thread(new Runnable() {
             @Override
             public void run() {
+                double latitude = GPS.getLocation(mainActivity).getLatitude();
+                double longitude = GPS.getLocation(mainActivity).getLongitude();
+                Log.i(TAG, "latitude==" + latitude);
+                Log.i(TAG, "longitude==" + longitude);
+
                 final ShareDataBuilder shareDataBuilder = new ShareDataBuilder();
                 shareDataBuilder.setNotification(R.drawable.ic_launcher,
                         mainActivity.getString(R.string.app_name));
@@ -334,8 +264,8 @@ public class ShareFragment extends Fragment implements PlatformActionListener, O
                 shareDataBuilder.setSiteUrl("http://weibo.com/u/5094864897");
                 shareDataBuilder.setVenueName("Action");
                 shareDataBuilder.setVenueDescription("This is a beautiful place!");
-                shareDataBuilder.setLatitude(23.056081f);
-                shareDataBuilder.setLongitude(113.385708f);
+                shareDataBuilder.setLatitude((float) latitude);
+                shareDataBuilder.setLongitude((float) longitude);
 //                if (platform != null) {
 //                    shareDataBuilder.setPlatform(platform);
 //                }
@@ -352,7 +282,7 @@ public class ShareFragment extends Fragment implements PlatformActionListener, O
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).isLogin()) {
                 Platform p = ShareSDK.getPlatform(mainActivity,
-                        DBUtils.categoryManager.get(data.get(i).getType()));
+                        DBUtils.getCategoryManager().get(data.get(i).getType()));
                 editRes.put(p, reqData);
             }
         }

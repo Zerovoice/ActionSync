@@ -29,7 +29,7 @@ public class ZeroAppApplication extends Application {
         // 初始化ShareSDK
         ShareSDK.initSDK(this);
         categoryDataControler = new CategoryDataControler(this);
-        DBUtils.initCategoryManager();// 必须，否则会空指针
+        DBUtils.getCategoryManager();// 必须，否则会空指针
         updateViewDatas();
         Log.d(TAG, "---------------------onCreate end-------------");
 
@@ -37,18 +37,18 @@ public class ZeroAppApplication extends Application {
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: updateViewDatas.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: updateViewDatas.
      * </p>
      * 
      */
     public void updateViewDatas() {
         mDatas = new ArrayList<CategoryInfo>();
-        // 初始化支持的社交类型，预置10种，此处可以控制
-        for (int i = 0; i < Constants.category_msg.length; i++) {
 
+        // 初始化支持的社交类型，预置10种，此处可以控制
+        for (int i = 1; i < Constants.category_msg.length; i++) {
             CategoryInfo categoryInfo = categoryDataControler.query(i);
             if (categoryInfo.isLogin()) {
                 categoryInfo.setIcon(Constants.color_icon[i]);

@@ -27,9 +27,13 @@ import com.zeroapp.action.constants.Config;
 import com.zeroapp.action.models.CategoryInfo;
 
 /**
- * <p>Title: TODO.</p>
- * <p>Description: TODO.</p>
- *
+ * <p>
+ * Title: CategoryDataControler.
+ * </p>
+ * <p>
+ * Description: CategoryDataControler.
+ * </p>
+ * 
  * @author Bobby Zou(zeroapp@126.com) 2014-4-23.
  * @version $Id$
  */
@@ -42,10 +46,10 @@ public class CategoryDataControler {
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: CategoryDataControler.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: CategoryDataControler.
      * </p>
      * 
      */
@@ -70,13 +74,13 @@ public class CategoryDataControler {
             mContentValues.put("islogin", 1);
             mContentResolver.insert(
                     Uri.parse("content://" + DBUtils.AUTHORITY + "/"
-                            + DBUtils.categoryManager.get(type)), mContentValues);
+                            + DBUtils.getCategoryManager().get(type)), mContentValues);
         }
     }
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: delete.
      * </p>
      * <p>
      * Description:
@@ -98,7 +102,7 @@ public class CategoryDataControler {
             mContentValues.put("islogin", 0);
             mContentResolver.update(
                     Uri.parse("content://" + DBUtils.AUTHORITY + "/"
-                            + DBUtils.categoryManager.get(type)), mContentValues, null, null);
+                            + DBUtils.getCategoryManager().get(type)), mContentValues, null, null);
         }
     }
 
@@ -115,19 +119,21 @@ public class CategoryDataControler {
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: growCategoryInfo.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: growCategoryInfo.
      * </p>
      * 
      * @param c
      * @return
      */
     private CategoryInfo growCategoryInfo(int type) {
+//        Log.i(TAG, "growCategoryInfo: " + type);
         CategoryInfo categoryInfo = new CategoryInfo();
         if (!Config.useDb) {
-            Platform p = ShareSDK.getPlatform(mContext, DBUtils.categoryManager.get(type));
+            Platform p = ShareSDK.getPlatform(mContext, DBUtils.getCategoryManager().get(type));
+//            Log.i(TAG, "p is: " + p);
             String userid = p.getDb().getUserId();
 //            Log.i(TAG, "userid is: " + userid);
             if (userid != null && userid.length() != 0) {
@@ -138,7 +144,7 @@ public class CategoryDataControler {
             Cursor c = null;
             c = mContentResolver.query(
                     Uri.parse("content://" + DBUtils.AUTHORITY + "/"
-                            + DBUtils.categoryManager.get(type)), null, null, null, null);
+                            + DBUtils.getCategoryManager().get(type)), null, null, null, null);
             while (c.moveToLast()) {
                 String username = c.getString(c.getColumnIndex("username"));
                 String pwd = c.getString(c.getColumnIndex("pwd"));

@@ -4,17 +4,49 @@ import com.zeroapp.action.R;
 
 public class Constants {
 
-    public static int[] color_icon = new int[] { R.drawable.logo_sinaweibo, R.drawable.logo_wechat,
+    public static int[] color_icon = new int[] {
+            R.drawable.logo_sinaweibo,// -0,空位
+            R.drawable.logo_sinaweibo, R.drawable.logo_wechat,
             R.drawable.logo_wechatmoments, R.drawable.logo_qzone, R.drawable.logo_tencentweibo,
             R.drawable.logo_renren, R.drawable.logo_douban, R.drawable.logo_evernote,
             R.drawable.logo_twitter, R.drawable.logo_facebook };
-    public static int[] gray_icon = new int[] { R.drawable.logo_sinaweibo_gray,
-            R.drawable.logo_wechat_gray, R.drawable.logo_wechatmoments_gray,
-            R.drawable.logo_qzone_gray, R.drawable.logo_tencentweibo_gray,
-            R.drawable.logo_renren_gray, R.drawable.logo_douban_gray,
-            R.drawable.logo_evernote_gray, R.drawable.logo_twitter_gray,
-            R.drawable.logo_facebook_gray };
+    public static int[] gray_icon = new int[] {
+            R.drawable.logo_sinaweibo_gray,// -0,空位
+            R.drawable.logo_sinaweibo_gray,// 1
+            R.drawable.logo_tencentweibo_gray,// 2
+            R.drawable.logo_qzone_gray, // 3
+            R.drawable.logo_wechat_gray, // 4
+            R.drawable.logo_wechatmoments_gray,// 5
+            R.drawable.logo_wechatfavorite_gray,// 6
+            R.drawable.logo_qq_gray,// 7
+            R.drawable.logo_facebook_gray,// 8
+            R.drawable.logo_twitter_gray,// 9
+            R.drawable.logo_renren_gray,// 10
+            R.drawable.logo_kaixin_gray,// 11
+            R.drawable.logo_email_gray,// 12
+            R.drawable.logo_shortmessage_gray,// 13
+            R.drawable.logo_sohumicroblog_gray,// 14
+            R.drawable.logo_neteasemicroblog_gray,// 15--NetEaseMicroBlog
+            R.drawable.logo_douban_gray,// 16
+            R.drawable.logo_youdao_gray,// 17
+            R.drawable.logo_sohusuishenkan_gray,// 18
+            R.drawable.logo_evernote_gray,// 19
+            R.drawable.logo_linkedin_gray,// 20
+            R.drawable.logo_googleplus_gray,// 21
+            R.drawable.logo_foursquare_gray,// 22 FourSquare
+            R.drawable.logo_pinterest_gray,// 23 Pinterest
+            R.drawable.logo_flickr_gray,// 24
+            R.drawable.logo_tumblr_gray,// 25
+            R.drawable.logo_dropbox_gray,// 26
+            R.drawable.logo_vkontakte_gray,// 27
+            R.drawable.logo_instagram_gray,// 28
+            R.drawable.logo_yixin_gray,// 29
+            R.drawable.logo_yixinmoments_gray,// 30
+            R.drawable.logo_mingdao_gray,// 31
+
+    };
     public static int[] category_msg = new int[] { R.string.string_sinaweibo,
+            R.string.string_sinaweibo,
             R.string.string_wechat, R.string.string_wechatmoments, R.string.string_qzone,
             R.string.string_tencentweibo, R.string.string_renren, R.string.string_douban,
             R.string.string_evernote, R.string.string_twitter, R.string.string_facebook };

@@ -66,7 +66,7 @@ public class GPS {
                 @Override
                 public void onLocationChanged(Location location) {
                     if (location != null) {
-                        Log.e(TAG, "Location changed : Lat: " + location.getLatitude() + " Lng: "
+                        Log.i(TAG, "Location changed : Lat: " + location.getLatitude() + " Lng: "
                                 + location.getLongitude());
                     }
                 }

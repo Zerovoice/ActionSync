@@ -15,9 +15,13 @@ package com.zeroapp.action.constants;
 
 
 /**
- * <p>Title: TODO.</p>
- * <p>Description: TODO.</p>
- *
+ * <p>
+ * Title: Config.
+ * </p>
+ * <p>
+ * Description: Config.
+ * </p>
+ * 
  * @author Bobby Zou(zeroapp@126.com) 2014-5-5.
  * @version $Id$
  */

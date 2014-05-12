@@ -22,9 +22,13 @@ import android.net.Uri;
 import android.util.Log;
 
 /**
- * <p>Title: TODO.</p>
- * <p>Description: TODO.</p>
- *
+ * <p>
+ * Title: CategoryDataProvider.
+ * </p>
+ * <p>
+ * Description: CategoryDataProvider.
+ * </p>
+ * 
  * @author Bobby Zou(zeroapp@126.com) 2014-4-22.
  * @version $Id$
  */
@@ -39,10 +43,10 @@ public class CategoryDataProvider extends ContentProvider {
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: onCreate.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: onCreate.
      * </p>
      * 
      * @return
@@ -63,10 +67,10 @@ public class CategoryDataProvider extends ContentProvider {
       
     /**
      * <p>
-     * Title: TODO.
+     * Title: delete.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: delete.
      * </p>
      * 
      * @param uri
@@ -78,16 +82,16 @@ public class CategoryDataProvider extends ContentProvider {
     public synchronized int delete(Uri uri, String selection, String[] selectionArgs) {
 		int type = sMatcher.match(uri);
 		Log.i(TAG, "CategoryDataProvider -> delete()，type is " + type);
-		db.delete(DBUtils.categoryManager.get(type), selection, selectionArgs);
+        db.delete(DBUtils.getCategoryManager().get(type), selection, selectionArgs);
         return 0;
     }
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: getType.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: getType.
      * </p>
      * 
      * @param uri
@@ -101,10 +105,10 @@ public class CategoryDataProvider extends ContentProvider {
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: insert.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: insert.
      * </p>
      * 
      * @param uri
@@ -115,17 +119,17 @@ public class CategoryDataProvider extends ContentProvider {
     public synchronized Uri insert(Uri uri, ContentValues values) {
     	int type = sMatcher.match(uri);
         Log.i(TAG, "CategoryDataProvider -> insert(),type is "+type);
-        db.insert(DBUtils.categoryManager.get(type), null, values);
+        db.insert(DBUtils.getCategoryManager().get(type), null, values);
         return null;
     }
 
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: query.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: query.
      * </p>
      * 
      * @param uri
@@ -142,17 +146,18 @@ public class CategoryDataProvider extends ContentProvider {
     	int type = sMatcher.match(uri);
         Log.i(TAG, "CategoryDataProvider -> query()，type is "+type);
         Cursor c = null;
-        c = db.query(DBUtils.categoryManager.get(type), projection, selection, selectionArgs, null,
+        c = db.query(DBUtils.getCategoryManager().get(type), projection, selection, selectionArgs,
+                null,
                 null, sortOrder);
         return c;
     }
 
     /**
      * <p>
-     * Title: TODO.
+     * Title: update.
      * </p>
      * <p>
-     * Description: TODO.
+     * Description: update.
      * </p>
      * 
      * @param uri
@@ -166,7 +171,7 @@ public class CategoryDataProvider extends ContentProvider {
             String[] selectionArgs) {
     	int type = sMatcher.match(uri);
         Log.i(TAG, "CategoryDataProvider -> update()，type is "+type);
-        db.update(DBUtils.categoryManager.get(type), values, selection, selectionArgs);
+        db.update(DBUtils.getCategoryManager().get(type), values, selection, selectionArgs);
         return 0;
     }
 
