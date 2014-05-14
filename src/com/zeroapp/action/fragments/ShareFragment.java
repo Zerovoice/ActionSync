@@ -46,9 +46,9 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.ShareCore;
 
 import com.zeroapp.action.R;
-import com.zeroapp.action.activity.CategorySelecteActivity;
 import com.zeroapp.action.activity.MainActivity;
 import com.zeroapp.action.database.DBUtils;
+import com.zeroapp.action.models.CarouselViewDataControler;
 import com.zeroapp.action.models.CategoryInfo;
 import com.zeroapp.action.models.ShareDataBuilder;
 import com.zeroapp.action.util.GPS;
@@ -278,7 +278,7 @@ public class ShareFragment extends Fragment implements PlatformActionListener, O
 
     private HashMap<Platform, HashMap<String, Object>> getSharePlatforms() {
         HashMap<Platform, HashMap<String, Object>> editRes = new HashMap<Platform, HashMap<String, Object>>();
-        List<CategoryInfo> data = CategorySelecteActivity.mDatas;
+        List<CategoryInfo> data = CarouselViewDataControler.mDatas;
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).isLogin()) {
                 Platform p = ShareSDK.getPlatform(mainActivity,

@@ -21,6 +21,7 @@ import com.zeroapp.action.R;
 import com.zeroapp.action.fragments.DeleteFragment;
 import com.zeroapp.action.fragments.GuideFragment;
 import com.zeroapp.action.fragments.LoginFragment;
+import com.zeroapp.action.models.CarouselViewDataControler;
 import com.zeroapp.action.models.CategoryInfo;
 import com.zeroapp.action.view.carousel.CarouselAdapter;
 import com.zeroapp.action.view.carousel.CarouselAdapter.OnItemClickListener;
@@ -93,7 +94,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      */
     private void initCarousel() {
         // 不支持的动态添加adapter.notifyDataSetChanged()增强滑动的流畅
-        adapter = new CarouselViewAdapter(this, CategorySelecteActivity.mDatas, false);
+        adapter = new CarouselViewAdapter(this, CarouselViewDataControler.mDatas, false);
         carousel.setOnItemClickListener(this);
         carousel.setOnItemLongClickListener(this);
         carousel.setOnItemSelectedListener(this);
@@ -113,10 +114,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
      * 
      */
     public void updateCarouselView() {
-        CategorySelecteActivity.getInstance().updateViewDatas();
+        CarouselViewDataControler.getInstance(this).updateView(null);
 //        adapter.setImages(data);
         // 以下处理可以解决UI不刷新，但是基本上就是重新加载carousel。
-        adapter = new CarouselViewAdapter(this, CategorySelecteActivity.mDatas, false);
+        adapter = new CarouselViewAdapter(this, CarouselViewDataControler.mDatas, false);
         carousel.setAdapter(adapter);
     }
 	
@@ -129,7 +130,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 
     @Override
     public void onItemSelected(CarouselAdapter<?> parent, View view, int position, long id) {
-        CategoryInfo c = CategorySelecteActivity.mDatas.get(position);
+        CategoryInfo c = CarouselViewDataControler.mDatas.get(position);
         actionBarTitle.setText(c.getMsg());
 
         switching(c);
@@ -142,13 +143,13 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 
     @Override
     public void onItemClick(CarouselAdapter<?> parent, View view, int position, long id) {
-        CategoryInfo c = CategorySelecteActivity.mDatas.get(position);
+        CategoryInfo c = CarouselViewDataControler.mDatas.get(position);
         click(c);
     }
 
     @Override
     public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
-        CategoryInfo c = CategorySelecteActivity.mDatas.get(position);
+        CategoryInfo c = CarouselViewDataControler.mDatas.get(position);
         delete(c);
         return false;
     }

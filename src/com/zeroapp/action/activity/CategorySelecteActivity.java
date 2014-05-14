@@ -21,15 +21,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.GridView;
 
 import com.zeroapp.action.R;
+import com.zeroapp.action.adepter.AllCategroyAdepter;
 import com.zeroapp.action.constants.Constants;
-import com.zeroapp.action.database.CategoryDataControler;
-import com.zeroapp.action.models.CategoryInfo;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.zeroapp.action.models.CarouselViewDataControler;
 
 /**
  * <p>
@@ -45,23 +42,18 @@ import java.util.List;
 
 public class CategorySelecteActivity extends Activity implements OnClickListener {
 
-    public static List<CategoryInfo> mDatas;
     private static final String TAG = "CategorySelecteActivity";
 
-    private static CategorySelecteActivity instance;
-
-    private CategoryDataControler categoryDataControler;
     private String categoryString;
-    private int[] categoryInt;
     private Button BtnSelected;
+    private GridView gridCategory;
+    private AllCategroyAdepter allCategoryAdepter;
 
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CategorySelecteActivity.instance = this;
-        categoryDataControler = new CategoryDataControler(this);
         sharedPreferences = getApplicationContext().getSharedPreferences("sharedPrefName", 0);
         categoryString = sharedPreferences.getString("categoryString", null);
 //        categoryString = "1:2:3:4:8:9:10:16:28";
@@ -70,36 +62,16 @@ public class CategorySelecteActivity extends Activity implements OnClickListener
             setContentView(R.layout.category_select);
             BtnSelected = (Button) findViewById(R.id.btn_category_selected);
             BtnSelected.setOnClickListener(this);
+
+            gridCategory = (GridView) findViewById(R.id.grid_category);
+            allCategoryAdepter = new AllCategroyAdepter(this, Constants.color_icon);
+            gridCategory.setAdapter(allCategoryAdepter);
         } else {
             Log.i(TAG, "categoryString!=null");
             startMainActivity();
 
         }
         
-    }
-
-    /**
-     * <p>
-     * Title: getcategoryList.
-     * </p>
-     * <p>
-     * Description: getcategoryList.
-     * </p>
-     * 
-     * @param s
-     * @return
-     */
-    private int[] getcategoryList(String s) {
-        String[] categoryS = s.split(":");
-        Log.i(TAG, "categoryS lenth==" + categoryS.length);
-        int[] categoryI = new int[categoryS.length];
-        for (int i = 0; i < categoryS.length; i++) {
-            Log.i(TAG, "categoryS[" + i + "]==" + categoryS[i]);
-            if (categoryS[i] != null && !categoryS[i].equals("")) {
-                categoryI[i] = Integer.parseInt(categoryS[i]);
-            }
-        }
-        return categoryI;
     }
 
     /**
@@ -112,7 +84,7 @@ public class CategorySelecteActivity extends Activity implements OnClickListener
      * 
      */
     private void startMainActivity() {
-        updateViewDatas();
+        CarouselViewDataControler.getInstance(this).updateView(categoryString);
         Intent i = new Intent(CategorySelecteActivity.this, MainActivity.class);
         try {
             startActivity(i);
@@ -122,40 +94,21 @@ public class CategorySelecteActivity extends Activity implements OnClickListener
         
     }
 
-    /**
-     * <p>
-     * Title: updateViewDatas.
-     * </p>
-     * <p>
-     * Description: updateViewDatas.
-     * </p>
-     * 
-     */
-    public void updateViewDatas() {
-        categoryInt = getcategoryList(categoryString);
-        mDatas = new ArrayList<CategoryInfo>();
-        for (int i = 0; i < Constants.category_msg.length; i++) {
-//            int b = Arrays.binarySearch(ca, i);
-//            Log.i(TAG, "i==" + i + ",    b==" + b);
-            if (Arrays.binarySearch(categoryInt, i) >= 0) {
-                CategoryInfo categoryInfo = categoryDataControler.query(i);
-                if (categoryInfo.isLogin()) {
-                    categoryInfo.setIcon(Constants.color_icon[i]);
-                } else {
-                    categoryInfo.setIcon(Constants.gray_icon[i]);
-                }
-                categoryInfo.setMsg(getString(Constants.category_msg[i]));
-                categoryInfo.setType(i);
-                mDatas.add(categoryInfo);
-            }
-        }
-
-    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_category_selected:
-                categoryString = "1:2:3:4:8:9:10:16:28";
+                categoryString = "";
+                CarouselViewDataControler.getInstance(this).updateView(categoryString);
+                for (int i = 0; i < 32; i++) {
+                    boolean ischecked = allCategoryAdepter.isEnabled(i);
+//                    Log.i(TAG, i + "  ischecked  " + ischecked);
+                    if(ischecked){
+                        categoryString += i + ":";
+                    }
+                }
+                Log.i(TAG, categoryString);
+//                sharedPreferences.edit().putString("categoryString", categoryString).commit();//TODO 测试时，注释掉
                 startMainActivity();
                 break;
 
@@ -163,9 +116,5 @@ public class CategorySelecteActivity extends Activity implements OnClickListener
                 break;
         }
 
-    }
-
-    public static CategorySelecteActivity getInstance() {
-        return instance;
     }
 }

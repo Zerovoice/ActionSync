@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <ImageView 
+        android:id="@+id/category_item_icon" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/logo_douban"
+        ></ImageView>
+    <CheckBox
+        android:id="@+id/category_item_box" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:button="@drawable/category_checkbox_selector"
+        />
+        <!-- android:layout_alignBottom="@id/category_item_icon"
+        android:layout_alignRight="@id/category_item_icon" -->
+
+</FrameLayout>
