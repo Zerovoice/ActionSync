@@ -24,25 +24,23 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 
 import com.zeroapp.action.R;
 import com.zeroapp.action.activity.MainActivity;
 
-import java.util.HashMap;
-
 /**
- * <p>Title: TODO.</p>
- * <p>Description: TODO.</p>
- *
+ * <p>
+ * Title: GuideFragment.
+ * </p>
+ * <p>
+ * Description: GuideFragment.
+ * </p>
+ * 
  * @author Bobby Zou(zeroapp@126.com) 2014-4-29.
  * @version $Id$
  */
 
-public class GuideFragment extends Fragment implements PlatformActionListener, OnClickListener {
+public class GuideFragment extends Fragment implements OnClickListener {
 
     private static final String TAG = "UserFragment";
 
@@ -50,7 +48,6 @@ public class GuideFragment extends Fragment implements PlatformActionListener, O
 
     private View mainView;
     private ImageView notLoginImg;
-    private TextView tv;
     private Button startShare;
 
     @Override
@@ -64,9 +61,6 @@ public class GuideFragment extends Fragment implements PlatformActionListener, O
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
         mainView = inflater.inflate(R.layout.fragment_guide, null);
-        tv = (TextView) mainView.findViewById(R.id.user_test);
-//        String text = "this is test:" + categoryInfo.getMsg();
-//        tv.setText(text);
         notLoginImg = (ImageView) mainView.findViewById(R.id.not_login_img);
         startShare = (Button) mainView.findViewById(R.id.btn_start_share);
         startShare.setOnClickListener(this);
@@ -77,34 +71,6 @@ public class GuideFragment extends Fragment implements PlatformActionListener, O
     public void onStart() {
         Log.i(TAG, "onStart");
         super.onStart();
-//        if (categoryInfo.isLogin()) {
-//            notLoginImg.setVisibility(View.GONE);
-//            tv.setVisibility(View.VISIBLE);
-//            Platform platform = ShareSDK.getPlatform(mainActivity,
-//                    DBUtils.categoryManager.get(categoryInfo.getType()));
-//            Log.i(TAG, "platform on " + platform.getName());
-//            platform.setPlatformActionListener(this);
-//            platform.showUser(null);
-//        }
-    }
-
-    @Override
-    public void onError(Platform arg0, int arg1, Throwable arg2) {
-        Log.i(TAG, "updateData--->onError");
-
-    }
-
-    @Override
-    public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
-        Log.i(TAG, "updateData--->onComplete");
-        tv.setVisibility(View.GONE);
-
-    }
-
-    @Override
-    public void onCancel(Platform arg0, int arg1) {
-        Log.i(TAG, "updateData--->onCancel");
-
     }
 
     @Override

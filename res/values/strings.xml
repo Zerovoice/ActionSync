@@ -6,14 +6,38 @@
     <string name="hello_world">Hello world!</string>
     <string name="viewpager">ViewPager</string>
     
-    <string name="string_sinaweibo">新浪微博</string>
-    <string name="string_wechat">微信</string>
-    <string name="string_wechatmoments">朋友圈</string>
-    <string name="string_qzone">qq空间</string>
-    <string name="string_tencentweibo">腾讯微博</string>
-    <string name="string_renren">人人</string>
-    <string name="string_douban">豆瓣</string>
-    <string name="string_evernote">evernote</string>
-    <string name="string_twitter">twitter</string>
+    <string name="string_sinaweibo">SinaWeibo</string>
+    <string name="string_tencentweibo">TencentWeibo</string>
+    <string name="string_qzone">QZone</string>
+    <string name="string_wechat">Wechat</string>
+    <string name="string_wechatmoments">WechatMoments</string>
+    <string name="string_wechatfavorite">WechatFavorite</string>
+    <string name="string_qq">QQ</string>
     <string name="string_facebook">facebook</string>
+    <string name="string_twitter">twitter</string>
+    <string name="string_renren">Renren</string>
+    <string name="string_kaixin">KaiXin</string>
+    <string name="string_email">Email</string>
+    <string name="string_shortmessage">ShortMessage</string>
+    <string name="string_sohumicroblog">SohuMicroBlog</string>
+    <string name="string_neteasemicroblog">NetEaseMicroBlog</string>
+    <string name="string_douban">Douban</string>
+    <string name="string_youdao">YouDao</string>
+    <string name="string_sohusuishenkan">Suishenkan</string>
+    <string name="string_evernote">Evernote</string>
+    <string name="string_linkedin">LinkedIn</string>
+    <string name="string_googleplus">Google+</string>
+    <string name="string_foursquare">FourSquare</string>
+    <string name="string_pinterest">Pinterest</string>
+    <string name="string_flickr">Flickr</string>
+    <string name="string_tumblr">Tumblr</string>
+    <string name="string_dropbox">Dropbox</string>
+    <string name="string_vkontakte">VKontakte</string>
+    <string name="string_instagram">Instagram</string>
+    <string name="string_yixin">Yixin</string>
+    <string name="string_yixinmoments">YixinMoments</string>
+    <string name="string_mingdao">Mingdao</string>
+    
+    
+    
 </resources>

@@ -133,19 +133,20 @@ public class CategoryDataControler {
         CategoryInfo categoryInfo = new CategoryInfo();
         if (!Config.useDb) {
             Platform p = ShareSDK.getPlatform(mContext, DBUtils.getCategoryManager().get(type));
-//            Log.i(TAG, "p is: " + p);
-            String userid = p.getDb().getUserId();
-//            Log.i(TAG, "userid is: " + userid);
-            if (userid != null && userid.length() != 0) {
-                categoryInfo.setLogin(true);
-                categoryInfo.setUserName(p.getDb().getUserName());
+            if (p != null) {
+                String userid = p.getDb().getUserId();
+                // Log.i(TAG, "userid is: " + userid);
+                if (userid != null && userid.length() != 0) {
+                    categoryInfo.setLogin(true);
+                    categoryInfo.setUserName(p.getDb().getUserName());
+                }
             }
         } else {
             Cursor c = null;
             c = mContentResolver.query(
                     Uri.parse("content://" + DBUtils.AUTHORITY + "/"
                             + DBUtils.getCategoryManager().get(type)), null, null, null, null);
-            while (c.moveToLast()) {
+            while (c != null && c.moveToLast()) {
                 String username = c.getString(c.getColumnIndex("username"));
                 String pwd = c.getString(c.getColumnIndex("pwd"));
                 int islogin = c.getInt(c.getColumnIndex("islogin"));

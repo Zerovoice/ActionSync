@@ -4,12 +4,40 @@ import com.zeroapp.action.R;
 
 public class Constants {
 
-    public static int[] color_icon = new int[] {
-            R.drawable.logo_sinaweibo,// -0,空位
-            R.drawable.logo_sinaweibo, R.drawable.logo_wechat,
-            R.drawable.logo_wechatmoments, R.drawable.logo_qzone, R.drawable.logo_tencentweibo,
-            R.drawable.logo_renren, R.drawable.logo_douban, R.drawable.logo_evernote,
-            R.drawable.logo_twitter, R.drawable.logo_facebook };
+    public static int[] color_icon = new int[] { R.drawable.logo_sinaweibo,// -0,空位
+            R.drawable.logo_sinaweibo,// 1
+            R.drawable.logo_tencentweibo,// 2
+            R.drawable.logo_qzone, // 3
+            R.drawable.logo_wechat, // 4
+            R.drawable.logo_wechatmoments,// 5
+            R.drawable.logo_wechatfavorite,// 6
+            R.drawable.logo_qq,// 7
+            R.drawable.logo_facebook,// 8
+            R.drawable.logo_twitter,// 9
+            R.drawable.logo_renren,// 10
+            R.drawable.logo_kaixin,// 11
+            R.drawable.logo_email,// 12
+            R.drawable.logo_shortmessage,// 13
+            R.drawable.logo_sohumicroblog,// 14
+            R.drawable.logo_neteasemicroblog,// 15--NetEaseMicroBlog
+            R.drawable.logo_douban,// 16
+            R.drawable.logo_youdao,// 17
+            R.drawable.logo_sohusuishenkan,// 18
+            R.drawable.logo_evernote,// 19
+            R.drawable.logo_linkedin,// 20
+            R.drawable.logo_googleplus,// 21
+            R.drawable.logo_foursquare,// 22 FourSquare
+            R.drawable.logo_pinterest,// 23 Pinterest
+            R.drawable.logo_flickr,// 24
+            R.drawable.logo_tumblr,// 25
+            R.drawable.logo_dropbox,// 26
+            R.drawable.logo_vkontakte,// 27
+            R.drawable.logo_instagram,// 28
+            R.drawable.logo_yixin,// 29
+            R.drawable.logo_yixinmoments,// 30
+            R.drawable.logo_mingdao,// 31
+
+    };
     public static int[] gray_icon = new int[] {
             R.drawable.logo_sinaweibo_gray,// -0,空位
             R.drawable.logo_sinaweibo_gray,// 1
@@ -45,11 +73,40 @@ public class Constants {
             R.drawable.logo_mingdao_gray,// 31
 
     };
-    public static int[] category_msg = new int[] { R.string.string_sinaweibo,
-            R.string.string_sinaweibo,
-            R.string.string_wechat, R.string.string_wechatmoments, R.string.string_qzone,
-            R.string.string_tencentweibo, R.string.string_renren, R.string.string_douban,
-            R.string.string_evernote, R.string.string_twitter, R.string.string_facebook };
+    public static int[] category_msg = new int[] { R.string.string_sinaweibo,// -0,空位
+            R.string.string_sinaweibo,// 1
+            R.string.string_tencentweibo,// 2
+            R.string.string_qzone, // 3
+            R.string.string_wechat, // 4
+            R.string.string_wechatmoments,// 5
+            R.string.string_wechatfavorite,// 6
+            R.string.string_qq,// 7
+            R.string.string_facebook,// 8
+            R.string.string_twitter,// 9
+            R.string.string_renren,// 10
+            R.string.string_kaixin,// 11
+            R.string.string_email,// 12
+            R.string.string_shortmessage,// 13
+            R.string.string_sohumicroblog,// 14
+            R.string.string_neteasemicroblog,// 15--NetEaseMicroBlog
+            R.string.string_douban,// 16
+            R.string.string_youdao,// 17
+            R.string.string_sohusuishenkan,// 18
+            R.string.string_evernote,// 19
+            R.string.string_linkedin,// 20
+            R.string.string_googleplus,// 21
+            R.string.string_foursquare,// 22 FourSquare
+            R.string.string_pinterest,// 23 Pinterest
+            R.string.string_flickr,// 24
+            R.string.string_tumblr,// 25
+            R.string.string_dropbox,// 26
+            R.string.string_vkontakte,// 27
+            R.string.string_instagram,// 28
+            R.string.string_yixin,// 29
+            R.string.string_yixinmoments,// 30
+            R.string.string_mingdao,// 31
+
+    };
 
 
     public class WeiboConstants {

@@ -3,18 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
-        android:id="@+id/not_login_img" 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/not_login_image"
         />
     <Button
-        android:id="@+id/btn_start_share" 
+        android:id="@+id/btn_category_selected" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="20dp"
-        android:text="一触即发"
+        android:text="选定分类"
         android:background="@drawable/button_bg_focused"
         />
 
