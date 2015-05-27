@@ -1,13 +1,13 @@
 /* 
- * Copyright (C) 2011 Hisense Electric Co., Ltd. 
+ * Copyright (C) 2011 zeroapp Electric Co., Ltd. 
  * All Rights Reserved.
  *
- * ALL RIGHTS ARE RESERVED BY HISENSE ELECTRIC CO., LTD. ACCESS TO THIS
+ * ALL RIGHTS ARE RESERVED BY zeroapp ELECTRIC CO., LTD. ACCESS TO THIS
  * SOURCE CODE IS STRICTLY RESTRICTED UNDER CONTRACT. THIS CODE IS TO
  * BE KEPT STRICTLY CONFIDENTIAL.
  *
  * UNAUTHORIZED MODIFICATION OF THIS FILE WILL VOID YOUR SUPPORT CONTRACT
- * WITH HISENSE ELECTRIC CO., LTD. IF SUCH MODIFICATIONS ARE FOR THE PURPOSE
+ * WITH zeroapp ELECTRIC CO., LTD. IF SUCH MODIFICATIONS ARE FOR THE PURPOSE
  * OF CIRCUMVENTING LICENSING LIMITATIONS, LEGAL ACTION MAY RESULT.
  */
 
@@ -32,7 +32,7 @@ import com.zeroapp.action.util.AbViewUtil;
  * <p>Title: TODO.</p>
  * <p>Description: TODO.</p>
  *
- * @author Bobby Zou(zouxiaobo@hisense.com) 2014-5-14.
+ * @author Bobby Zou(zouxiaobo@zeroapp.com) 2014-5-14.
  * @version $Id$
  */
 
